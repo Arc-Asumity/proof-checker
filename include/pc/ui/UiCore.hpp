@@ -8,4 +8,13 @@
 
 #pragma once
 
-int run();
+#include <GLFW/glfw3.h>
+
+class Session
+{
+    GLFWwindow* window_ = nullptr;
+    float scale_ = 0;
+public:
+    int init();
+    [[nodiscard]] int runGui() const;
+};

@@ -2,7 +2,7 @@ add_executable(ProofChecker Main.cpp)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
     if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
-        set_target_properties(ProtocolLab PROPERTIES WIN32_EXECUTABLE TRUE)
+        set_target_properties(ProofChecker PROPERTIES WIN32_EXECUTABLE TRUE)
     endif ()
 endif ()
 
