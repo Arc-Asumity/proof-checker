@@ -3,18 +3,17 @@
 // Licensed under the MIT.
 // https://github.com/Arc-Asumity/proof-checker
 // ==============================================================
-// Path /include/pc/ui/UiCore.hpp
-// Header file for Core of UI.
+// Path /include/pc/Definition.hpp
+// Header file for constant variant.
 
 #pragma once
 
-#include <GLFW/glfw3.h>
+#include <cstdint>
 
-class Session
+namespace document
 {
-    GLFWwindow* window_ = nullptr;
-    float scale_ = 0;
-public:
-    int init();
-    [[nodiscard]] int runGui() const;
-};
+    constexpr size_t kGapFillSize = 8;
+    constexpr size_t kGapEmptySize = 16;
+    constexpr size_t kGapSize = kGapFillSize + kGapEmptySize;
+
+}

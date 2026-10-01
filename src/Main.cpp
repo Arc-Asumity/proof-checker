@@ -6,11 +6,17 @@
 // Path /src/Main.cpp
 // Main of ProofChecker.
 
-#include <pc/ui/UiCore.hpp>
+#include <pc/core/Application.hpp>
 
 int main(const int argc, char* argv[])
 {
-    auto session = Session();
-    session.init();
-    return session.runGui();
+    auto application = Application::create();
+
+    if (!application) {
+        return 1;
+    }
+
+    application->run();
+
+    return 0;
 }

@@ -1,3 +1,4 @@
-add_library(ProofCheckerUi UiCore.cpp)
-target_include_directories(ProofCheckerUi PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(ProofCheckerUi PUBLIC imgui)
+add_library(ProofChecker_UI Window.cpp)
+add_library(ProofChecker::UI ALIAS ProofChecker_UI)
+target_include_directories(ProofChecker_UI PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(ProofChecker_UI PUBLIC ProofChecker::OpenGL)
