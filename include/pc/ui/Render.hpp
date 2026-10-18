@@ -11,15 +11,23 @@
 
 using namespace std;
 
-#include <vector>
-
 class Render
 {
 public:
+    Render() = default;
+    ~Render();
+
+    Render(const Render&) = delete;
+    Render& operator=(const Render&) = delete;
+
     void init();
     void render();
     void renderPolygon(PointSet& points);
 
 private:
+    unsigned int program_{};
+    unsigned int vao_{};
+    unsigned int vbo_{};
+
     Widget root_;
 };

@@ -9,11 +9,15 @@
 #pragma once
 
 #include <expected>
+#include <memory>
+
 #include <pc/ui/Window.hpp>
+#include <pc/ui/Render.hpp>
 
 using namespace std;
 
-class Application {
+class Application
+{
 public:
     static expected<Application, WindowError> create();
 
@@ -31,4 +35,5 @@ private:
     explicit Application(Window window);
 
     Window window_;
+    unique_ptr<Render> render_;
 };

@@ -22,7 +22,7 @@ glad_add_library(
         ProofChecker_GLAD
         STATIC
         REPRODUCIBLE
-        API gl:core=3.3
+        API gl:core=4.6
 )
 add_library(ProofChecker::GLAD ALIAS ProofChecker_GLAD)
 

@@ -37,6 +37,19 @@ Window::create(const int width, const int height, const char* title)
     }
 
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(1);
+
+    if (gladLoadGL(glfwGetProcAddress) == 0)
+    {
+        glfwDestroyWindow(window);
+        glfwTerminate();
+
+        return unexpected(
+            WindowError::OpenGLLoaderInitializationFailed
+        );
+    }
+
+    glViewport(0, 0, width, height);
 
     return Window{window};
 }

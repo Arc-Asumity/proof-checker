@@ -9,6 +9,7 @@
 #pragma once
 
 #include <expected>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 using namespace std;
