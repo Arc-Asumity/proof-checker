@@ -32,90 +32,80 @@ pair<Rect, Rect> Rect::split_y(const float top, const float bottom) const
     return {top_rect, bottom_rect};
 }
 
-vector<Rect> Rect::split_xs(vector<float> xs) const
+vector<Rect> Rect::split_xs(const vector<float>& xs) const
 {
-    float local_x = this->x;
-    const float coefficient = this->width / accumulate(xs.begin(), xs.end(), 0.0f);
-    vector<Rect> result;
-    for (const float current_x : xs)
-    {
-        const float current_width = current_x * coefficient;
-        result.push_back(Rect{.x = local_x, .y = this->y, .width = current_width, .height = this->height});
-        local_x += current_width;
-    }
+    vector<Rect> result(xs.size());
+    split_xs(xs.data(), result.data(), xs.size());
     return result;
 }
 
-vector<Rect> Rect::split_ys(vector<float> ys) const
+vector<Rect> Rect::split_ys(const vector<float>& ys) const
 {
-    float local_y = this->y;
-    const float coefficient = this->height / accumulate(ys.begin(), ys.end(), 0.0f);
-    vector<Rect> result;
-    for (const float current_y : ys)
-    {
-        const float current_height = current_y * coefficient;
-        result.push_back(Rect{.x = this->x, .y = local_y, .width = this->width, .height = current_height});
-        local_y += current_height;
-    }
+    vector<Rect> result(ys.size());
+    split_ys(ys.data(), result.data(), ys.size());
     return result;
 }
 
-template <size_t N>
-array<Rect, N> Rect::split_xs(array<float, N> xs)
+template <const size_t N>
+array<Rect, N> Rect::split_xs(array<float, N>& xs) const
 {
-    float local_x = this->x;
-    const float coefficient = this->width / accumulate(xs.begin(), xs.end(), 0.0f);
     array<Rect, N> result;
-    for (size_t i = 0; i < xs.size(); i++)
-    {
-        const float current_width = xs[i] * coefficient;
-        result[i](Rect{.x = local_x, .y = this->y, .width = current_width, .height = this->height});
-        local_x += current_width;
-    }
+    split_xs(xs.data(), result.data(), N);
     return result;
 }
 
-template <size_t N>
-array<Rect, N> Rect::split_ys(array<float, N> ys)
+template <const size_t N>
+array<Rect, N> Rect::split_ys(array<float, N>& ys) const
 {
-    float local_y = this->y;
-    const float coefficient = this->height / accumulate(ys.begin(), ys.end(), 0.0f);
     array<Rect, N> result;
-    for (size_t i = 0; i < ys.size(); i++)
-    {
-        const float current_height = ys[i] * coefficient;
-        result[i](Rect{.x = this->x, .y = local_y, .width = this->width, .height = current_height});
-        local_y += current_height;
-    }
+    split_ys(ys.data(), result.data(), N);
     return result;
 }
 
-vector<Rect> Rect::split_xs(float* xs, const size_t size) const
+vector<Rect> Rect::split_xs(const float* xs, const size_t size) const
 {
+    vector<Rect> result(size);
+    split_xs(xs, result.data(), size);
+    return result;
+}
+
+vector<Rect> Rect::split_ys(const float* ys, const size_t size) const
+{
+    vector<Rect> result(size);
+    split_ys(ys, result.data(), size);
+    return result;
+}
+
+void Rect::split_xs(const float* xs, Rect* result, const size_t size) const
+{
+    if (size == 0) return;
+    const float sum = accumulate(xs, xs + size, 0.0f);
+    if (sum <= 0.0f) return;
     float local_x = this->x;
-    const float coefficient = this->width / accumulate(xs, xs + size, 0.0f);
-    vector<Rect> result;
+    const float coefficient = this->width / sum;
     for (const float* i = xs; i < xs + size; i++)
     {
         const float current_width = *i * coefficient;
-        result.push_back(Rect{.x = local_x, .y = this->y, .width = current_width, .height = this->height});
+        *result = Rect{.x = local_x, .y = this->y, .width = current_width, .height = this->height};
+        result++;
         local_x += current_width;
     }
-    return result;
 }
 
-vector<Rect> Rect::split_ys(float* ys, size_t size) const
+void Rect::split_ys(const float* ys, Rect* result, const size_t size) const
 {
+    if (size == 0) return;
+    const float sum = accumulate(ys, ys + size, 0.0f);
+    if (sum <= 0.0f) return;
     float local_y = this->y;
-    const float coefficient = this->width / accumulate(ys, ys + size, 0.0f);
-    vector<Rect> result;
+    const float coefficient = this->height / sum;
     for (const float* i = ys; i < ys + size; i++)
     {
-        const float current_width = *i * coefficient;
-        result.push_back(Rect{.x = this->x, .y = local_y, .width = this->width, .height = current_width});
-        local_y += current_width;
+        const float current_height = *i * coefficient;
+        *result = Rect{.x = this->x, .y = local_y, .width = this->width, .height = current_height};
+        result++;
+        local_y += current_height;
     }
-    return result;
 }
 
 Point Rect::translate(const float current_x, const float current_y) const

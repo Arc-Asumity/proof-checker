@@ -26,22 +26,26 @@ struct Rect
     split_y(float top, float bottom) const;
 
     [[nodiscard]] vector<Rect>
-    split_xs(vector<float> xs) const;
+    split_xs(const vector<float>& xs) const;
     [[nodiscard]] vector<Rect>
-    split_ys(vector<float> ys) const;
+    split_ys(const vector<float>& ys) const;
 
-    template<size_t N>
-    array<Rect, N> split_xs(array<float, N> xs);
-    template<size_t N>
-    array<Rect, N> split_ys(array<float, N> ys);
+    template<const size_t N>
+    array<Rect, N> split_xs(array<float, N>& xs) const;
+    template<const size_t N>
+    array<Rect, N> split_ys(array<float, N>& ys) const;
 
     [[nodiscard]] vector<Rect>
-    split_xs(float* xs, size_t size) const;
+    split_xs(const float* xs, size_t size) const;
     [[nodiscard]] vector<Rect>
-    split_ys(float* ys, size_t size) const;
+    split_ys(const float* ys, size_t size) const;
 
     [[nodiscard]] Point
     translate(float current_x, float current_y) const;
     [[nodiscard]] Point
     translate(Point point) const;
+
+private:
+    void split_xs(const float* xs, Rect* result, size_t size) const;
+    void split_ys(const float* ys, Rect* result, size_t size) const;
 };
