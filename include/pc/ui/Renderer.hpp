@@ -9,8 +9,6 @@
 #pragma once
 #include <pc/ui/Widget.hpp>
 
-using namespace std;
-
 class Renderer
 {
 public:

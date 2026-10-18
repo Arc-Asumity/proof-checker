@@ -7,9 +7,8 @@
 // Header file for base of UI.
 
 #pragma once
-#include <vector>
 
-using namespace std;
+#include <vector>
 
 struct Point
 {
@@ -17,7 +16,7 @@ struct Point
     float y;
 };
 
-using PointSet = vector<Point>;
+using PointSet = std::vector<Point>;
 
 struct Color
 {

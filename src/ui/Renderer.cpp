@@ -136,7 +136,7 @@ void Renderer::Render()
     };
 
     for (Point& point : points) {
-        point = rect.translate(point);
+        point = rect.Translate(point);
     }
 
     RenderPolygon(points);

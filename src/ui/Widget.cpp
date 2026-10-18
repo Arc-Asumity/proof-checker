@@ -12,25 +12,23 @@
 #include <pc/ui/Widget.hpp>
 #include <pc/ui/Base.hpp>
 
-using namespace std;
-
 WidgetPart::WidgetPart(PointSet points)
     : points_(std::move(points))
 {}
 
-Widget::Widget(vector<WidgetPart> parts)
+Widget::Widget(std::vector<WidgetPart> parts)
     : parts_(std::move(parts))
 {}
 
 void WidgetPart::UpdateRect(Rect& rect)
 {
     points_temporary_.resize(points_.size());
-    ranges::transform(
+    std::ranges::transform(
         points_,
         points_temporary_.begin(),
         [&rect](const Point& point)
         {
-            return rect.translate(point);
+            return rect.Translate(point);
         }
     );
 }

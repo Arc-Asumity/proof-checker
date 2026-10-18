@@ -10,9 +10,7 @@
 
 #include <glad/gl.h>
 
-using namespace std;
-
-expected<Application, WindowError>
+std::expected<Application, WindowError>
 Application::Create()
 {
     auto window = Window::Create(
@@ -22,7 +20,7 @@ Application::Create()
     );
 
     if (!window) {
-        return unexpected(window.error());
+        return std::unexpected(window.error());
     }
 
     return Application{
@@ -32,7 +30,7 @@ Application::Create()
 
 Application::Application(Window window)
     : window_(std::move(window)),
-      render_(make_unique<Renderer>())
+      render_(std::make_unique<Renderer>())
 {
     render_->Init();
 }

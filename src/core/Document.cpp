@@ -9,17 +9,15 @@
 #include <cstring>
 #include <pc/core/Document.hpp>
 
-using namespace std;
-
 void Gap::Reset()
 {
-    content_.fill(byte{0x00});
+    content_.fill(std::byte{0x00});
     index_ = document::kGapFillSize;
     max_index_ = index_;
     min_index_ = index_;
 }
 
-void Gap::Load(byte* source)
+void Gap::Load(std::byte* source)
 {
     source_ = source;
     memcpy(content_.data(), source - document::kGapFillSize, document::kGapFillSize);
@@ -30,8 +28,8 @@ void Gap::Remove()
     if (index_ == 0)
     {
         index_--;
-        min_index_ = min(index_, min_index_);
-        content_[index_] = byte{0x00};
+        min_index_ = std::min(index_, min_index_);
+        content_[index_] = std::byte{0x00};
     } else
     {
         Fill();
@@ -39,11 +37,11 @@ void Gap::Remove()
     }
 }
 
-void Gap::Input(const byte& data)
+void Gap::Input(const std::byte& data)
 {
     content_[index_] = data;
     index_++;
-    max_index_ = max(index_, max_index_);
+    max_index_ = std::max(index_, max_index_);
 }
 
 void Gap::Fill() const

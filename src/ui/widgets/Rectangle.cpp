@@ -11,7 +11,7 @@
 Widget MakeRectangle()
 {
     return Widget{
-        vector{
+        std::vector{
             WidgetPart{
                 PointSet{
                     {.x = 0.0f, .y = 0.0f},

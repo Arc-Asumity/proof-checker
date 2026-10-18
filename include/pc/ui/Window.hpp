@@ -12,8 +12,6 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-using namespace std;
-
 enum class WindowError
 {
     GlfwInitializationFailed,
@@ -23,7 +21,7 @@ enum class WindowError
 
 class Window {
 public:
-    static expected<Window, WindowError>
+    static std::expected<Window, WindowError>
     Create(int width, int height, const char* title);
 
     ~Window();

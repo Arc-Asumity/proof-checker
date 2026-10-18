@@ -7,11 +7,10 @@
 // Header file for rect of UI.
 
 #pragma once
+
 #include <vector>
 
 #include <pc/ui/Base.hpp>
-
-using namespace std;
 
 struct Rect
 {
@@ -20,30 +19,30 @@ struct Rect
     float width;
     float height;
 
-    [[nodiscard]] pair<Rect, Rect>
+    [[nodiscard]] std::pair<Rect, Rect>
     SplitX(float left, float right) const;
-    [[nodiscard]] pair<Rect, Rect>
+    [[nodiscard]] std::pair<Rect, Rect>
     SplitY(float top, float bottom) const;
 
-    [[nodiscard]] vector<Rect>
-    SplitXs(const vector<float>& xs) const;
-    [[nodiscard]] vector<Rect>
-    SplitYs(const vector<float>& ys) const;
+    [[nodiscard]] std::vector<Rect>
+    SplitXs(const std::vector<float>& xs) const;
+    [[nodiscard]] std::vector<Rect>
+    SplitYs(const std::vector<float>& ys) const;
 
     template<const size_t N>
-    array<Rect, N> SplitXs(const array<float, N>& xs) const;
+    std::array<Rect, N> SplitXs(const std::array<float, N>& xs) const;
     template<const size_t N>
-    array<Rect, N> SplitYs(const array<float, N>& ys) const;
+    std::array<Rect, N> SplitYs(const std::array<float, N>& ys) const;
 
-    [[nodiscard]] vector<Rect>
+    [[nodiscard]] std::vector<Rect>
     SplitXs(const float* xs, size_t size) const;
-    [[nodiscard]] vector<Rect>
+    [[nodiscard]] std::vector<Rect>
     SplitYs(const float* ys, size_t size) const;
 
     [[nodiscard]] Point
-    translate(float current_x, float current_y) const;
+    Translate(float current_x, float current_y) const;
     [[nodiscard]] Point
-    translate(Point point) const;
+    Translate(Point point) const;
 
 private:
     void SplitXs(const float* xs, Rect* result, size_t size) const;

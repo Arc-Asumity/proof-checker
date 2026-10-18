@@ -10,9 +10,7 @@
 #include <numeric>
 #include <pc/ui/Rect.hpp>
 
-using namespace std;
-
-pair<Rect, Rect> Rect::SplitX(const float left, const float right) const
+std::pair<Rect, Rect> Rect::SplitX(const float left, const float right) const
 {
     Rect left_rect = *this;
     left_rect.width = left * this->width / (left + right);
@@ -22,7 +20,7 @@ pair<Rect, Rect> Rect::SplitX(const float left, const float right) const
     return {left_rect, right_rect};
 }
 
-pair<Rect, Rect> Rect::SplitY(const float top, const float bottom) const
+std::pair<Rect, Rect> Rect::SplitY(const float top, const float bottom) const
 {
     Rect top_rect = *this;
     top_rect.height = top * this->height / (top + bottom);
@@ -32,46 +30,46 @@ pair<Rect, Rect> Rect::SplitY(const float top, const float bottom) const
     return {top_rect, bottom_rect};
 }
 
-vector<Rect> Rect::SplitXs(const vector<float>& xs) const
+std::vector<Rect> Rect::SplitXs(const std::vector<float>& xs) const
 {
-    vector<Rect> result(xs.size());
+    std::vector<Rect> result(xs.size());
     SplitXs(xs.data(), result.data(), xs.size());
     return result;
 }
 
-vector<Rect> Rect::SplitYs(const vector<float>& ys) const
+std::vector<Rect> Rect::SplitYs(const std::vector<float>& ys) const
 {
-    vector<Rect> result(ys.size());
+    std::vector<Rect> result(ys.size());
     SplitYs(ys.data(), result.data(), ys.size());
     return result;
 }
 
 template <const size_t N>
-array<Rect, N> Rect::SplitXs(const array<float, N>& xs) const
+std::array<Rect, N> Rect::SplitXs(const std::array<float, N>& xs) const
 {
-    array<Rect, N> result;
-    split_xs(xs.data(), result.data(), N);
+    std::array<Rect, N> result;
+    splitXs(xs.data(), result.data(), N);
     return result;
 }
 
 template <const size_t N>
-array<Rect, N> Rect::SplitYs(const array<float, N>& ys) const
+std::array<Rect, N> Rect::SplitYs(const std::array<float, N>& ys) const
 {
-    array<Rect, N> result;
-    split_ys(ys.data(), result.data(), N);
+    std::array<Rect, N> result;
+    splitYs(ys.data(), result.data(), N);
     return result;
 }
 
-vector<Rect> Rect::SplitXs(const float* xs, const size_t size) const
+std::vector<Rect> Rect::SplitXs(const float* xs, const size_t size) const
 {
-    vector<Rect> result(size);
+    std::vector<Rect> result(size);
     SplitXs(xs, result.data(), size);
     return result;
 }
 
-vector<Rect> Rect::SplitYs(const float* ys, const size_t size) const
+std::vector<Rect> Rect::SplitYs(const float* ys, const size_t size) const
 {
-    vector<Rect> result(size);
+    std::vector<Rect> result(size);
     SplitYs(ys, result.data(), size);
     return result;
 }
@@ -79,7 +77,7 @@ vector<Rect> Rect::SplitYs(const float* ys, const size_t size) const
 void Rect::SplitXs(const float* xs, Rect* result, const size_t size) const
 {
     if (size == 0) return;
-    const float sum = accumulate(xs, xs + size, 0.0f);
+    const float sum = std::accumulate(xs, xs + size, 0.0f);
     if (sum <= 0.0f) return;
     float local_x = this->x;
     const float coefficient = this->width / sum;
@@ -95,7 +93,7 @@ void Rect::SplitXs(const float* xs, Rect* result, const size_t size) const
 void Rect::SplitYs(const float* ys, Rect* result, const size_t size) const
 {
     if (size == 0) return;
-    const float sum = accumulate(ys, ys + size, 0.0f);
+    const float sum = std::accumulate(ys, ys + size, 0.0f);
     if (sum <= 0.0f) return;
     float local_y = this->y;
     const float coefficient = this->height / sum;
@@ -108,7 +106,7 @@ void Rect::SplitYs(const float* ys, Rect* result, const size_t size) const
     }
 }
 
-Point Rect::translate(const float current_x, const float current_y) const
+Point Rect::Translate(const float current_x, const float current_y) const
 {
     Point result{};
     result.x = this->x + this->width * current_x;
@@ -116,7 +114,7 @@ Point Rect::translate(const float current_x, const float current_y) const
     return result;
 }
 
-Point Rect::translate(const Point point) const
+Point Rect::Translate(const Point point) const
 {
-    return translate(point.x, point.y);
+    return Translate(point.x, point.y);
 }

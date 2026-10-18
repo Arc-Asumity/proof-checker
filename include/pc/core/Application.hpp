@@ -14,8 +14,6 @@
 #include <pc/ui/Window.hpp>
 #include <pc/ui/Renderer.hpp>
 
-using namespace std;
-
 class Application
 {
 public:

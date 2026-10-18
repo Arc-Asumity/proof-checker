@@ -13,8 +13,6 @@
 #include <pc/ui/Rect.hpp>
 #include <pc/ui/Base.hpp>
 
-using namespace std;
-
 class WidgetPart
 {
 public:
@@ -34,18 +32,18 @@ class Widget
 public:
     Widget() = default;
 
-    explicit Widget(vector<WidgetPart> parts);
+    explicit Widget(std::vector<WidgetPart> parts);
 
     void UpdateRect(Rect& rect);
     void Render();
 
 private:
-    vector<WidgetPart> parts_{};
+    std::vector<WidgetPart> parts_{};
 
     PointSet hits_{};
     PointSet hits_temporary_{};
 
-    vector<Widget> sub_{};
+    std::vector<Widget> sub_{};
     float* rects_{};
 
 };

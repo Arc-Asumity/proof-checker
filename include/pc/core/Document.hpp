@@ -13,27 +13,25 @@
 #include <array>
 #include <pc/Definition.hpp>
 
-using namespace std;
-
 class Gap
 {
 public:
-    explicit Gap(byte* source) : source_{source} {};
+    explicit Gap(std::byte* source) : source_{source} {};
 
     void Reset();
-    void Load(byte* source);
+    void Load(std::byte* source);
 
     void Remove();
-    void Input(const byte& data);
+    void Input(const std::byte& data);
 
     void Fill() const;
 
 private:
-    array<byte, document::kGapSize> content_{};
+    std::array<std::byte, document::kGapSize> content_{};
 
     size_t index_ = document::kGapFillSize;
     size_t max_index_{}, min_index_{};
-    byte* source_{};
+    std::byte* source_{};
 };
 
 class Line
@@ -42,7 +40,7 @@ public:
     Line() = default;
 
 private:
-    vector<byte> content_{};
+    std::vector<std::byte> content_{};
 };
 
 class Document
@@ -54,13 +52,13 @@ public:
     void Down();
 
 private:
-    list<Line> lines_{};
+    std::list<Line> lines_{};
 
     Gap gap_ = Gap(nullptr);
 
     size_t index_{};
-    vector<Line*> lines_index_{};
-    vector<Line*> lines_cache_{};
+    std::vector<Line*> lines_index_{};
+    std::vector<Line*> lines_cache_{};
 
     bool changed_{false};
 

@@ -10,13 +10,11 @@
 #include <utility>
 #include <pc/ui/Window.hpp>
 
-using namespace std;
-
-expected<Window, WindowError>
+std::expected<Window, WindowError>
 Window::Create(const int width, const int height, const char* title)
 {
     if (glfwInit() == GLFW_FALSE) {
-        return unexpected(WindowError::GlfwInitializationFailed);
+        return std::unexpected(WindowError::GlfwInitializationFailed);
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -33,7 +31,7 @@ Window::Create(const int width, const int height, const char* title)
 
     if (window == nullptr) {
         glfwTerminate();
-        return unexpected(WindowError::WindowCreationFailed);
+        return std::unexpected(WindowError::WindowCreationFailed);
     }
 
     glfwMakeContextCurrent(window);
@@ -44,7 +42,7 @@ Window::Create(const int width, const int height, const char* title)
         glfwDestroyWindow(window);
         glfwTerminate();
 
-        return unexpected(
+        return std::unexpected(
             WindowError::OpenGLLoaderInitializationFailed
         );
     }
@@ -78,7 +76,7 @@ bool Window::ShouldClose() const
     return glfwWindowShouldClose(window_);
 }
 
-Window::Window(Window&& other) noexcept : window_(exchange(other.window_, nullptr))
+Window::Window(Window&& other) noexcept : window_(std::exchange(other.window_, nullptr))
 {}
 
 Window& Window::operator=(Window&& other) noexcept
@@ -92,7 +90,7 @@ Window& Window::operator=(Window&& other) noexcept
         glfwTerminate();
     }
 
-    window_ = exchange(other.window_, nullptr);
+    window_ = std::exchange(other.window_, nullptr);
 
     return *this;
 }
