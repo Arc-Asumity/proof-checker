@@ -78,7 +78,7 @@ Window& Window::operator=(Window&& other) noexcept
         glfwTerminate();
     }
 
-    window_ = std::exchange(other.window_, nullptr);
+    window_ = exchange(other.window_, nullptr);
 
     return *this;
 }

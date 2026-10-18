@@ -1,4 +1,4 @@
-add_library(ProofChecker_UI Window.cpp Rect.cpp)
+add_library(ProofChecker_UI Window.cpp Rect.cpp Widget.cpp Render.cpp)
 add_library(ProofChecker::UI ALIAS ProofChecker_UI)
 target_include_directories(ProofChecker_UI PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(ProofChecker_UI PUBLIC ProofChecker::OpenGL)

@@ -89,3 +89,16 @@ array<Rect, N> Rect::split_ys(array<float, N> ys)
     }
     return result;
 }
+
+Point Rect::translate(const float current_x, const float current_y) const
+{
+    Point result{};
+    result.x = this->x + this->width * current_x;
+    result.y = this->y + this->height * current_y;
+    return result;
+}
+
+Point Rect::translate(const Point point) const
+{
+    return translate(point.x, point.y);
+}

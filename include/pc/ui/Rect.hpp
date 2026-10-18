@@ -9,6 +9,8 @@
 #pragma once
 #include <vector>
 
+#include <pc/ui/Base.hpp>
+
 using namespace std;
 
 struct Rect
@@ -32,4 +34,9 @@ struct Rect
     array<Rect, N> split_xs(array<float, N> xs);
     template<size_t N>
     array<Rect, N> split_ys(array<float, N> ys);
+
+    [[nodiscard]] Point
+    translate(float current_x, float current_y) const;
+    [[nodiscard]] Point
+    translate(Point point) const;
 };
