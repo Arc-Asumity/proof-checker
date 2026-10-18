@@ -47,7 +47,7 @@ vector<Rect> Rect::split_ys(const vector<float>& ys) const
 }
 
 template <const size_t N>
-array<Rect, N> Rect::split_xs(array<float, N>& xs) const
+array<Rect, N> Rect::split_xs(const array<float, N>& xs) const
 {
     array<Rect, N> result;
     split_xs(xs.data(), result.data(), N);
@@ -55,7 +55,7 @@ array<Rect, N> Rect::split_xs(array<float, N>& xs) const
 }
 
 template <const size_t N>
-array<Rect, N> Rect::split_ys(array<float, N>& ys) const
+array<Rect, N> Rect::split_ys(const array<float, N>& ys) const
 {
     array<Rect, N> result;
     split_ys(ys.data(), result.data(), N);

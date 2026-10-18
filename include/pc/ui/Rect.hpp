@@ -31,9 +31,9 @@ struct Rect
     split_ys(const vector<float>& ys) const;
 
     template<const size_t N>
-    array<Rect, N> split_xs(array<float, N>& xs) const;
+    array<Rect, N> split_xs(const array<float, N>& xs) const;
     template<const size_t N>
-    array<Rect, N> split_ys(array<float, N>& ys) const;
+    array<Rect, N> split_ys(const array<float, N>& ys) const;
 
     [[nodiscard]] vector<Rect>
     split_xs(const float* xs, size_t size) const;
