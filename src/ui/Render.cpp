@@ -8,6 +8,8 @@
 
 #include <pc/ui/Render.hpp>
 
+#include <glad/gl.h>
+
 void Render::render()
 {
     root_.render();

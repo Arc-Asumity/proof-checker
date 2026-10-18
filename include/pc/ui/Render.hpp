@@ -16,7 +16,9 @@ using namespace std;
 class Render
 {
 public:
+    void init();
     void render();
+    void renderPolygon(PointSet& points);
 
 private:
     Widget root_;

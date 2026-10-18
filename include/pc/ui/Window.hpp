@@ -17,6 +17,7 @@ enum class WindowError
 {
     GlfwInitializationFailed,
     WindowCreationFailed,
+    OpenGLLoaderInitializationFailed,
 };
 
 class Window {

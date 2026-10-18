@@ -1,3 +1,4 @@
+
 include(FetchContent)
 
 FetchContent_Declare(
@@ -8,8 +9,31 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
+FetchContent_Declare(
+        glad
+        GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+        GIT_TAG v2.0.8
+        GIT_SHALLOW TRUE
+        SOURCE_SUBDIR cmake
+)
+FetchContent_MakeAvailable(glad)
+
+glad_add_library(
+        ProofChecker_GLAD
+        STATIC
+        REPRODUCIBLE
+        API gl:core=3.3
+)
+add_library(ProofChecker::GLAD ALIAS ProofChecker_GLAD)
+
 find_package(OpenGL REQUIRED)
 
 add_library(ProofChecker_OpenGL INTERFACE)
-target_link_libraries(ProofChecker_OpenGL INTERFACE glfw OpenGL::GL)
+target_link_libraries(
+        ProofChecker_OpenGL
+        INTERFACE
+        glfw
+        OpenGL::GL
+        ProofChecker::GLAD
+)
 add_library(ProofChecker::OpenGL ALIAS ProofChecker_OpenGL)

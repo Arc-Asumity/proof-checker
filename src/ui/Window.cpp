@@ -6,6 +6,7 @@
 // Path /src/ui/Window.cpp
 // Core of UI.
 
+#include <glad/gl.h>
 #include <utility>
 #include <pc/ui/Window.hpp>
 
