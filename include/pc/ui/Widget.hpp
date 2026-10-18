@@ -20,8 +20,8 @@ class WidgetPart
 public:
     explicit WidgetPart(PointSet points);
 
-    void updateRect(Rect& rect);
-    void render();
+    void UpdateRect(Rect& rect);
+    void Render();
 
 private:
     PointSet points_{};
@@ -36,8 +36,8 @@ public:
 
     explicit Widget(vector<WidgetPart> parts);
 
-    void updateRect(Rect& rect);
-    void render();
+    void UpdateRect(Rect& rect);
+    void Render();
 
 private:
     vector<WidgetPart> parts_{};

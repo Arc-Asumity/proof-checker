@@ -24,15 +24,15 @@ enum class WindowError
 class Window {
 public:
     static expected<Window, WindowError>
-    create(int width, int height, const char* title);
+    Create(int width, int height, const char* title);
 
     ~Window();
 
-    static void pollEvents();
-    void swapBuffers() const;
+    static void PollEvents();
+    void SwapBuffers() const;
 
     [[nodiscard]]
-    bool shouldClose() const;
+    bool ShouldClose() const;
 
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;

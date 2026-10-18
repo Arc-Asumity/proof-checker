@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void Gap::reset()
+void Gap::Reset()
 {
     content_.fill(byte{0x00});
     index_ = document::kGapFillSize;
@@ -19,13 +19,13 @@ void Gap::reset()
     min_index_ = index_;
 }
 
-void Gap::load(byte* source)
+void Gap::Load(byte* source)
 {
     source_ = source;
     memcpy(content_.data(), source - document::kGapFillSize, document::kGapFillSize);
 }
 
-void Gap::remove()
+void Gap::Remove()
 {
     if (index_ == 0)
     {
@@ -34,43 +34,43 @@ void Gap::remove()
         content_[index_] = byte{0x00};
     } else
     {
-        fill();
-        reset();
+        Fill();
+        Reset();
     }
 }
 
-void Gap::input(const byte& data)
+void Gap::Input(const byte& data)
 {
     content_[index_] = data;
     index_++;
     max_index_ = max(index_, max_index_);
 }
 
-void Gap::fill() const
+void Gap::Fill() const
 {
     memcpy(source_, content_.data() + min_index_, max_index_ - min_index_);
 }
 
-void Document::up()
+void Document::Up()
 {
-    update();
+    Update();
     if (index_ != 0)
         index_--;
 }
 
-void Document::down()
+void Document::Down()
 {
-    update();
+    Update();
     if (index_ < lines_.size() - 1)
         index_++;
 }
 
-void Document::update()
+void Document::Update()
 {
     if (changed_)
     {
         changed_ = false;
-        gap_.fill();
-        gap_.reset();
+        gap_.Fill();
+        gap_.Reset();
     }
 }

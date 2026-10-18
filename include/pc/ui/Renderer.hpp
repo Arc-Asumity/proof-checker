@@ -3,7 +3,7 @@
 // Licensed under the MIT.
 // https://github.com/Arc-Asumity/proof-checker
 // ==============================================================
-// Path /include/pc/ui/Render.hpp
+// Path /include/pc/ui/Renderer.hpp
 // Header file for render of UI.
 
 #pragma once
@@ -11,18 +11,18 @@
 
 using namespace std;
 
-class Render
+class Renderer
 {
 public:
-    Render() = default;
-    ~Render();
+    Renderer() = default;
+    ~Renderer();
 
-    Render(const Render&) = delete;
-    Render& operator=(const Render&) = delete;
+    Renderer(const Renderer&) = delete;
+    Renderer& operator=(const Renderer&) = delete;
 
-    void init();
-    void render();
-    void renderPolygon(PointSet& points);
+    void Init();
+    void Render();
+    void RenderPolygon(PointSet& points);
 
 private:
     unsigned int program_{};

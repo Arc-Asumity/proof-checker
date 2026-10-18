@@ -10,13 +10,13 @@
 
 int main(const int argc, char* argv[])
 {
-    auto application = Application::create();
+    auto application = Application::Create();
 
     if (!application) {
         return 1;
     }
 
-    application->run();
+    application->Run();
 
     return 0;
 }

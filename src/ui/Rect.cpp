@@ -12,7 +12,7 @@
 
 using namespace std;
 
-pair<Rect, Rect> Rect::split_x(const float left, const float right) const
+pair<Rect, Rect> Rect::SplitX(const float left, const float right) const
 {
     Rect left_rect = *this;
     left_rect.width = left * this->width / (left + right);
@@ -22,7 +22,7 @@ pair<Rect, Rect> Rect::split_x(const float left, const float right) const
     return {left_rect, right_rect};
 }
 
-pair<Rect, Rect> Rect::split_y(const float top, const float bottom) const
+pair<Rect, Rect> Rect::SplitY(const float top, const float bottom) const
 {
     Rect top_rect = *this;
     top_rect.height = top * this->height / (top + bottom);
@@ -32,22 +32,22 @@ pair<Rect, Rect> Rect::split_y(const float top, const float bottom) const
     return {top_rect, bottom_rect};
 }
 
-vector<Rect> Rect::split_xs(const vector<float>& xs) const
+vector<Rect> Rect::SplitXs(const vector<float>& xs) const
 {
     vector<Rect> result(xs.size());
-    split_xs(xs.data(), result.data(), xs.size());
+    SplitXs(xs.data(), result.data(), xs.size());
     return result;
 }
 
-vector<Rect> Rect::split_ys(const vector<float>& ys) const
+vector<Rect> Rect::SplitYs(const vector<float>& ys) const
 {
     vector<Rect> result(ys.size());
-    split_ys(ys.data(), result.data(), ys.size());
+    SplitYs(ys.data(), result.data(), ys.size());
     return result;
 }
 
 template <const size_t N>
-array<Rect, N> Rect::split_xs(const array<float, N>& xs) const
+array<Rect, N> Rect::SplitXs(const array<float, N>& xs) const
 {
     array<Rect, N> result;
     split_xs(xs.data(), result.data(), N);
@@ -55,28 +55,28 @@ array<Rect, N> Rect::split_xs(const array<float, N>& xs) const
 }
 
 template <const size_t N>
-array<Rect, N> Rect::split_ys(const array<float, N>& ys) const
+array<Rect, N> Rect::SplitYs(const array<float, N>& ys) const
 {
     array<Rect, N> result;
     split_ys(ys.data(), result.data(), N);
     return result;
 }
 
-vector<Rect> Rect::split_xs(const float* xs, const size_t size) const
+vector<Rect> Rect::SplitXs(const float* xs, const size_t size) const
 {
     vector<Rect> result(size);
-    split_xs(xs, result.data(), size);
+    SplitXs(xs, result.data(), size);
     return result;
 }
 
-vector<Rect> Rect::split_ys(const float* ys, const size_t size) const
+vector<Rect> Rect::SplitYs(const float* ys, const size_t size) const
 {
     vector<Rect> result(size);
-    split_ys(ys, result.data(), size);
+    SplitYs(ys, result.data(), size);
     return result;
 }
 
-void Rect::split_xs(const float* xs, Rect* result, const size_t size) const
+void Rect::SplitXs(const float* xs, Rect* result, const size_t size) const
 {
     if (size == 0) return;
     const float sum = accumulate(xs, xs + size, 0.0f);
@@ -92,7 +92,7 @@ void Rect::split_xs(const float* xs, Rect* result, const size_t size) const
     }
 }
 
-void Rect::split_ys(const float* ys, Rect* result, const size_t size) const
+void Rect::SplitYs(const float* ys, Rect* result, const size_t size) const
 {
     if (size == 0) return;
     const float sum = accumulate(ys, ys + size, 0.0f);

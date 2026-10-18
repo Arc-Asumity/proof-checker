@@ -13,9 +13,9 @@
 using namespace std;
 
 expected<Application, WindowError>
-Application::create()
+Application::Create()
 {
-    auto window = Window::create(
+    auto window = Window::Create(
         1280,
         720,
         "Proof Checker"
@@ -32,22 +32,22 @@ Application::create()
 
 Application::Application(Window window)
     : window_(std::move(window)),
-      render_(make_unique<Render>())
+      render_(make_unique<Renderer>())
 {
-    render_->init();
+    render_->Init();
 }
 
-void Application::run()
+void Application::Run()
 {
     glViewport(0, 0, 1280, 720);
     glClearColor(0.08f, 0.09f, 0.12f, 1.0f);
 
-    while (!window_.shouldClose()) {
-        Window::pollEvents();
+    while (!window_.ShouldClose()) {
+        Window::PollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT);
-        render_->render();
+        render_->Render();
 
-        window_.swapBuffers();
+        window_.SwapBuffers();
     }
 }

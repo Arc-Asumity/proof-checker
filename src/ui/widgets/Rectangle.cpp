@@ -8,7 +8,7 @@
 
 #include <pc/ui/widgets/Rectangle.hpp>
 
-Widget make_rectangle()
+Widget MakeRectangle()
 {
     return Widget{
         vector{

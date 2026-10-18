@@ -22,7 +22,7 @@ Widget::Widget(vector<WidgetPart> parts)
     : parts_(std::move(parts))
 {}
 
-void WidgetPart::updateRect(Rect& rect)
+void WidgetPart::UpdateRect(Rect& rect)
 {
     points_temporary_.resize(points_.size());
     ranges::transform(

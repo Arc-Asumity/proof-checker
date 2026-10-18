@@ -3,10 +3,10 @@
 // Licensed under the MIT.
 // https://github.com/Arc-Asumity/proof-checker
 // ==============================================================
-// Path /src/ui/Render.cpp
+// Path /src/ui/Renderer.cpp
 // Render of UI.
 
-#include <pc/ui/Render.hpp>
+#include <pc/ui/Renderer.hpp>
 
 #include <glad/gl.h>
 
@@ -58,7 +58,7 @@ namespace
     }
 }
 
-Render::~Render()
+Renderer::~Renderer()
 {
     if (vbo_ != 0) {
         glDeleteBuffers(1, &vbo_);
@@ -73,7 +73,7 @@ Render::~Render()
     }
 }
 
-void Render::init()
+void Renderer::Init()
 {
     const GLuint vertex_shader =
         compileShader(GL_VERTEX_SHADER, vertex_shader_source);
@@ -119,7 +119,7 @@ void Render::init()
     glBindVertexArray(0);
 }
 
-void Render::render()
+void Renderer::Render()
 {
     PointSet points{
         {0.0f, 0.0f},
@@ -139,10 +139,10 @@ void Render::render()
         point = rect.translate(point);
     }
 
-    renderPolygon(points);
+    RenderPolygon(points);
 }
 
-void Render::renderPolygon(PointSet& points)
+void Renderer::RenderPolygon(PointSet& points)
 {
     if (points.size() < 3) {
         return;

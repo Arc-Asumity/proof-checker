@@ -12,14 +12,14 @@
 #include <memory>
 
 #include <pc/ui/Window.hpp>
-#include <pc/ui/Render.hpp>
+#include <pc/ui/Renderer.hpp>
 
 using namespace std;
 
 class Application
 {
 public:
-    static expected<Application, WindowError> create();
+    static expected<Application, WindowError> Create();
 
     ~Application() = default;
 
@@ -29,11 +29,11 @@ public:
     Application(Application&&) noexcept = default;
     Application& operator=(Application&&) noexcept = default;
 
-    void run();
+    void Run();
 
 private:
     explicit Application(Window window);
 
     Window window_;
-    unique_ptr<Render> render_;
+    unique_ptr<Renderer> render_;
 };

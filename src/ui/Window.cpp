@@ -13,7 +13,7 @@
 using namespace std;
 
 expected<Window, WindowError>
-Window::create(const int width, const int height, const char* title)
+Window::Create(const int width, const int height, const char* title)
 {
     if (glfwInit() == GLFW_FALSE) {
         return unexpected(WindowError::GlfwInitializationFailed);
@@ -63,17 +63,17 @@ Window::~Window()
     }
 }
 
-void Window::pollEvents()
+void Window::PollEvents()
 {
     glfwPollEvents();
 }
 
-void Window::swapBuffers() const
+void Window::SwapBuffers() const
 {
     glfwSwapBuffers(window_);
 }
 
-bool Window::shouldClose() const
+bool Window::ShouldClose() const
 {
     return glfwWindowShouldClose(window_);
 }

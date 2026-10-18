@@ -10,4 +10,4 @@
 
 #include <pc/ui/Widget.hpp>
 
-[[nodiscard]] Widget make_rectangle();
+[[nodiscard]] Widget MakeRectangle();

@@ -21,24 +21,24 @@ struct Rect
     float height;
 
     [[nodiscard]] pair<Rect, Rect>
-    split_x(float left, float right) const;
+    SplitX(float left, float right) const;
     [[nodiscard]] pair<Rect, Rect>
-    split_y(float top, float bottom) const;
+    SplitY(float top, float bottom) const;
 
     [[nodiscard]] vector<Rect>
-    split_xs(const vector<float>& xs) const;
+    SplitXs(const vector<float>& xs) const;
     [[nodiscard]] vector<Rect>
-    split_ys(const vector<float>& ys) const;
+    SplitYs(const vector<float>& ys) const;
 
     template<const size_t N>
-    array<Rect, N> split_xs(const array<float, N>& xs) const;
+    array<Rect, N> SplitXs(const array<float, N>& xs) const;
     template<const size_t N>
-    array<Rect, N> split_ys(const array<float, N>& ys) const;
+    array<Rect, N> SplitYs(const array<float, N>& ys) const;
 
     [[nodiscard]] vector<Rect>
-    split_xs(const float* xs, size_t size) const;
+    SplitXs(const float* xs, size_t size) const;
     [[nodiscard]] vector<Rect>
-    split_ys(const float* ys, size_t size) const;
+    SplitYs(const float* ys, size_t size) const;
 
     [[nodiscard]] Point
     translate(float current_x, float current_y) const;
@@ -46,6 +46,6 @@ struct Rect
     translate(Point point) const;
 
 private:
-    void split_xs(const float* xs, Rect* result, size_t size) const;
-    void split_ys(const float* ys, Rect* result, size_t size) const;
+    void SplitXs(const float* xs, Rect* result, size_t size) const;
+    void SplitYs(const float* ys, Rect* result, size_t size) const;
 };

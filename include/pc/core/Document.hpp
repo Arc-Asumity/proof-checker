@@ -20,13 +20,13 @@ class Gap
 public:
     explicit Gap(byte* source) : source_{source} {};
 
-    void reset();
-    void load(byte* source);
+    void Reset();
+    void Load(byte* source);
 
-    void remove();
-    void input(const byte& data);
+    void Remove();
+    void Input(const byte& data);
 
-    void fill() const;
+    void Fill() const;
 
 private:
     array<byte, document::kGapSize> content_{};
@@ -50,8 +50,8 @@ class Document
 public:
     Document() = default;
 
-    void up();
-    void down();
+    void Up();
+    void Down();
 
 private:
     list<Line> lines_{};
@@ -64,5 +64,5 @@ private:
 
     bool changed_{false};
 
-    void update();
+    void Update();
 };
