@@ -8,10 +8,19 @@
 
 #include <algorithm>
 #include <ranges>
+#include <utility>
 #include <pc/ui/Widget.hpp>
 #include <pc/ui/Base.hpp>
 
 using namespace std;
+
+WidgetPart::WidgetPart(PointSet points)
+    : points_(std::move(points))
+{}
+
+Widget::Widget(vector<WidgetPart> parts)
+    : parts_(std::move(parts))
+{}
 
 void WidgetPart::updateRect(Rect& rect)
 {
@@ -25,5 +34,3 @@ void WidgetPart::updateRect(Rect& rect)
         }
     );
 }
-
-

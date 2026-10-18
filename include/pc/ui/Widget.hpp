@@ -18,6 +18,8 @@ using namespace std;
 class WidgetPart
 {
 public:
+    explicit WidgetPart(PointSet points);
+
     void updateRect(Rect& rect);
     void render();
 
@@ -31,6 +33,8 @@ class Widget
 {
 public:
     Widget() = default;
+
+    explicit Widget(vector<WidgetPart> parts);
 
     void updateRect(Rect& rect);
     void render();
