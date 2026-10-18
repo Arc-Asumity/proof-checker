@@ -35,6 +35,11 @@ struct Rect
     template<size_t N>
     array<Rect, N> split_ys(array<float, N> ys);
 
+    [[nodiscard]] vector<Rect>
+    split_xs(float* xs, size_t size) const;
+    [[nodiscard]] vector<Rect>
+    split_ys(float* ys, size_t size) const;
+
     [[nodiscard]] Point
     translate(float current_x, float current_y) const;
     [[nodiscard]] Point

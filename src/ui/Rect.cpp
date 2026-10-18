@@ -90,6 +90,34 @@ array<Rect, N> Rect::split_ys(array<float, N> ys)
     return result;
 }
 
+vector<Rect> Rect::split_xs(float* xs, const size_t size) const
+{
+    float local_x = this->x;
+    const float coefficient = this->width / accumulate(xs, xs + size, 0.0f);
+    vector<Rect> result;
+    for (const float* i = xs; i < xs + size; i++)
+    {
+        const float current_width = *i * coefficient;
+        result.push_back(Rect{.x = local_x, .y = this->y, .width = current_width, .height = this->height});
+        local_x += current_width;
+    }
+    return result;
+}
+
+vector<Rect> Rect::split_ys(float* ys, size_t size) const
+{
+    float local_y = this->y;
+    const float coefficient = this->width / accumulate(ys, ys + size, 0.0f);
+    vector<Rect> result;
+    for (const float* i = ys; i < ys + size; i++)
+    {
+        const float current_width = *i * coefficient;
+        result.push_back(Rect{.x = this->x, .y = local_y, .width = this->width, .height = current_width});
+        local_y += current_width;
+    }
+    return result;
+}
+
 Point Rect::translate(const float current_x, const float current_y) const
 {
     Point result{};

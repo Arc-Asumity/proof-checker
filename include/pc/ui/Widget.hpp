@@ -42,5 +42,6 @@ private:
     PointSet hits_temporary_{};
 
     vector<Widget> sub_{};
+    float* rects_{};
 
 };
