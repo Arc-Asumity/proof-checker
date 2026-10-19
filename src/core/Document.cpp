@@ -7,6 +7,9 @@
 // Class for Document.
 
 #include <cstring>
+#include <cstddef>
+#include <algorithm>
+
 #include <pc/core/Document.hpp>
 
 void Gap::Reset()

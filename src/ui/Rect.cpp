@@ -44,22 +44,6 @@ std::vector<Rect> Rect::SplitYs(const std::vector<float>& ys) const
     return result;
 }
 
-template <const size_t N>
-std::array<Rect, N> Rect::SplitXs(const std::array<float, N>& xs) const
-{
-    std::array<Rect, N> result;
-    splitXs(xs.data(), result.data(), N);
-    return result;
-}
-
-template <const size_t N>
-std::array<Rect, N> Rect::SplitYs(const std::array<float, N>& ys) const
-{
-    std::array<Rect, N> result;
-    splitYs(ys.data(), result.data(), N);
-    return result;
-}
-
 std::vector<Rect> Rect::SplitXs(const float* xs, const size_t size) const
 {
     std::vector<Rect> result(size);

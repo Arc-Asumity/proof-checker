@@ -9,7 +9,6 @@
 #pragma once
 
 #include <expected>
-#include <memory>
 
 #include <pc/ui/Window.hpp>
 #include <pc/ui/Renderer.hpp>
@@ -17,7 +16,7 @@
 class Application
 {
 public:
-    static expected<Application, WindowError> Create();
+    static std::expected<Application, WindowError> Create();
 
     ~Application() = default;
 
@@ -33,5 +32,5 @@ private:
     explicit Application(Window window);
 
     Window window_;
-    unique_ptr<Renderer> render_;
+    Renderer render_;
 };

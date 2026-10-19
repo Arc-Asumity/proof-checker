@@ -29,10 +29,21 @@ struct Rect
     [[nodiscard]] std::vector<Rect>
     SplitYs(const std::vector<float>& ys) const;
 
-    template<const size_t N>
-    std::array<Rect, N> SplitXs(const std::array<float, N>& xs) const;
-    template<const size_t N>
-    std::array<Rect, N> SplitYs(const std::array<float, N>& ys) const;
+
+    template <const size_t N>
+    std::array<Rect, N> SplitXs(const std::array<float, N>& xs) const
+    {
+        std::array<Rect, N> result;
+        SplitXs(xs.data(), result.data(), N);
+        return result;
+    }
+    template <const size_t N>
+    std::array<Rect, N> SplitYs(const std::array<float, N>& ys) const
+    {
+        std::array<Rect, N> result;
+        SplitYs(ys.data(), result.data(), N);
+        return result;
+    }
 
     [[nodiscard]] std::vector<Rect>
     SplitXs(const float* xs, size_t size) const;

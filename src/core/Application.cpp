@@ -24,15 +24,15 @@ Application::Create()
     }
 
     return Application{
-        std::move(*window)
+        std::move(*window),
     };
 }
 
 Application::Application(Window window)
     : window_(std::move(window)),
-      render_(std::make_unique<Renderer>())
+      render_(Renderer())
 {
-    render_->Init();
+    render_.Init();
 }
 
 void Application::Run()
@@ -44,7 +44,7 @@ void Application::Run()
         Window::PollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT);
-        render_->Render();
+        render_.Render();
 
         window_.SwapBuffers();
     }
