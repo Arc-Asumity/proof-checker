@@ -7,13 +7,44 @@
 // Render of UI.
 
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 #include <glad/gl.h>
 
 #include <pc/ui/Widget.hpp>
 #include <pc/ui/Renderer.hpp>
-#include <pc/ui/Rect.hpp>
+
+Renderer::Renderer(Renderer&& other) noexcept
+    : program_(std::exchange(other.program_, 0)),
+      vao_(std::exchange(other.vao_, 0)),
+      vbo_(std::exchange(other.vbo_, 0))
+{}
+
+Renderer& Renderer::operator=(Renderer&& other) noexcept
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    if (vbo_ != 0) {
+        glDeleteBuffers(1, &vbo_);
+    }
+
+    if (vao_ != 0) {
+        glDeleteVertexArrays(1, &vao_);
+    }
+
+    if (program_ != 0) {
+        glDeleteProgram(program_);
+    }
+
+    program_ = std::exchange(other.program_, 0);
+    vao_ = std::exchange(other.vao_, 0);
+    vbo_ = std::exchange(other.vbo_, 0);
+
+    return *this;
+}
 
 namespace
 {
@@ -121,6 +152,15 @@ void Renderer::Init()
     glBindVertexArray(0);
 }
 
+#define GL_CHECK() \
+    do { \
+        GLenum error = glGetError(); \
+        if (error != GL_NO_ERROR) { \
+            std::cerr << "OpenGL error " << error \
+                      << " at line " << __LINE__ << '\n'; \
+        } \
+    } while (false)
+
 void Renderer::RenderPolygon(const PointSet& points) const
 {
     if (points.size() < 3) {
@@ -130,9 +170,9 @@ void Renderer::RenderPolygon(const PointSet& points) const
     std::vector<float> vertices;
     vertices.reserve(points.size() * 2);
 
-    for (const Point& point : points) {
-        vertices.push_back(point.x * 2.0f - 1.0f);
-        vertices.push_back(1.0f - point.y * 2.0f);
+    for (const auto& [x, y] : points) {
+        vertices.push_back(x * 2.0f - 1.0f);
+        vertices.push_back(1.0f - y * 2.0f);
     }
 
     glUseProgram(program_);
