@@ -48,6 +48,10 @@ void Widget::UpdateRect(Rect& rect)
     for (WidgetPart& part : parts_) {
         part.UpdateRect(rect);
     }
+
+    for (Widget& widget : sub_) {
+        widget.UpdateRect(rect);
+    }
 }
 
 void Widget::Render(Renderer& renderer)
