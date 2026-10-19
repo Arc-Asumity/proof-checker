@@ -11,6 +11,7 @@
 #include <expected>
 
 #include <pc/ui/Window.hpp>
+#include <pc/ui/Widget.hpp>
 #include <pc/ui/Renderer.hpp>
 
 class Application
@@ -32,5 +33,6 @@ private:
     explicit Application(Window window);
 
     Window window_;
+    Widget root_;
     Renderer render_;
 };

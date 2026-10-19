@@ -12,6 +12,7 @@
 
 #include <pc/ui/Rect.hpp>
 #include <pc/ui/Base.hpp>
+#include <pc/ui/Renderer.hpp>
 
 class WidgetPart
 {
@@ -19,7 +20,7 @@ public:
     explicit WidgetPart(PointSet points);
 
     void UpdateRect(Rect& rect);
-    void Render();
+    void Render(const Renderer& renderer) const;
 
 private:
     PointSet points_{};
@@ -35,7 +36,7 @@ public:
     explicit Widget(std::vector<WidgetPart> parts);
 
     void UpdateRect(Rect& rect);
-    void Render();
+    void Render(Renderer& renderer);
 
 private:
     std::vector<WidgetPart> parts_{};

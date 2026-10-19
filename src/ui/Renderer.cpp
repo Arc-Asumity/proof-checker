@@ -6,12 +6,14 @@
 // Path /src/ui/Renderer.cpp
 // Render of UI.
 
-#include <pc/ui/Renderer.hpp>
+#include <stdexcept>
+#include <vector>
 
 #include <glad/gl.h>
 
-#include <stdexcept>
-#include <vector>
+#include <pc/ui/Widget.hpp>
+#include <pc/ui/Renderer.hpp>
+#include <pc/ui/Rect.hpp>
 
 namespace
 {
@@ -119,30 +121,7 @@ void Renderer::Init()
     glBindVertexArray(0);
 }
 
-void Renderer::Render()
-{
-    PointSet points{
-        {0.0f, 0.0f},
-        {1.0f, 0.0f},
-        {1.0f, 1.0f},
-        {0.0f, 1.0f}
-    };
-
-    Rect rect{
-        .x = 0.25f,
-        .y = 0.25f,
-        .width = 0.5f,
-        .height = 0.5f
-    };
-
-    for (Point& point : points) {
-        point = rect.Translate(point);
-    }
-
-    RenderPolygon(points);
-}
-
-void Renderer::RenderPolygon(PointSet& points)
+void Renderer::RenderPolygon(const PointSet& points) const
 {
     if (points.size() < 3) {
         return;

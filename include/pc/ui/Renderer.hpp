@@ -7,7 +7,8 @@
 // Header file for render of UI.
 
 #pragma once
-#include <pc/ui/Widget.hpp>
+
+#include <pc/ui/Base.hpp>
 
 class Renderer
 {
@@ -22,13 +23,10 @@ public:
     Renderer& operator=(Renderer&&) noexcept = default;
 
     void Init();
-    void Render();
-    void RenderPolygon(PointSet& points);
+    void RenderPolygon(const PointSet& points) const;
 
 private:
     unsigned int program_{};
     unsigned int vao_{};
     unsigned int vbo_{};
-
-    Widget root_;
 };

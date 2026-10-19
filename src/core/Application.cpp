@@ -44,7 +44,18 @@ void Application::Run()
         Window::PollEvents();
 
         glClear(GL_COLOR_BUFFER_BIT);
-        render_.Render();
+
+        {
+            Rect rect{
+                .x = 0.0f,
+                .y = 0.0f,
+                .width = 1.0f,
+                .height = 1.0f
+            };
+
+            root_.UpdateRect(rect);
+            root_.Render(render_);
+        }
 
         window_.SwapBuffers();
     }

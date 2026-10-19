@@ -32,3 +32,26 @@ void WidgetPart::UpdateRect(Rect& rect)
         }
     );
 }
+
+void WidgetPart::Render(const Renderer& renderer) const
+{
+    renderer.RenderPolygon(points_temporary_);
+}
+
+void Widget::UpdateRect(Rect& rect)
+{
+    for (WidgetPart& part : parts_) {
+        part.UpdateRect(rect);
+    }
+}
+
+void Widget::Render(Renderer& renderer)
+{
+    for (WidgetPart& part : parts_) {
+        part.Render(renderer);
+    }
+
+    for (Widget& widget : sub_) {
+        widget.Render(renderer);
+    }
+}
