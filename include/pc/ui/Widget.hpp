@@ -35,6 +35,8 @@ public:
 
     explicit Widget(std::vector<WidgetPart> parts);
 
+    std::vector<Widget>& GetSub();
+
     void UpdateRect(Rect& rect);
     void Render(Renderer& renderer);
 

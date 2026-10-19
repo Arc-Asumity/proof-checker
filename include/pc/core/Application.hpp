@@ -29,6 +29,8 @@ public:
 
     void Run();
 
+    Widget& GetRoot();
+
 private:
     explicit Application(Window window);
 

@@ -60,3 +60,8 @@ void Application::Run()
         window_.SwapBuffers();
     }
 }
+
+Widget& Application::GetRoot()
+{
+    return root_;
+}

@@ -20,6 +20,11 @@ Widget::Widget(std::vector<WidgetPart> parts)
     : parts_(std::move(parts))
 {}
 
+std::vector<Widget>& Widget::GetSub()
+{
+    return sub_;
+}
+
 void WidgetPart::UpdateRect(Rect& rect)
 {
     points_temporary_.resize(points_.size());

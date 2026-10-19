@@ -16,6 +16,18 @@ int main(const int argc, char* argv[])
         return 1;
     }
 
+    Widget& root = application->GetRoot();
+    root.GetSub().push_back(Widget({
+          WidgetPart{
+              PointSet{
+                  {.x = 0.25f, .y = 0.25f},
+                  {.x = 0.75f, .y = 0.25f},
+                  {.x = 0.75f, .y = 0.75f},
+                  {.x = 0.25f, .y = 0.75f}
+              }
+          }
+      }));
+
     application->Run();
 
     return 0;
