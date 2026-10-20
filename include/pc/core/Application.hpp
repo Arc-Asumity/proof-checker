@@ -49,7 +49,7 @@ namespace MainWidget
         .height = 1.0f
     };
 
-    constexpr int kLayout = 1000;
+    constexpr int kLayout = 100;
 
     inline Widget MakeMain(const Window& window, Widget top_widget, Widget bottom_widget)
     {

@@ -78,6 +78,9 @@ Window::Create(const char* title)
 
     glViewport(0, 0, framebufferWidth, framebufferHeight);
 
+    self.width_ = framebufferWidth;
+    self.height_ = framebufferHeight;
+
     glfwSetWindowUserPointer(window, &self);
     glfwSetFramebufferSizeCallback(
         window,
@@ -117,7 +120,11 @@ Window::Window(Window&& other) noexcept
     : window_(std::exchange(other.window_, nullptr))
     , width_(std::exchange(other.width_, 0))
     , height_(std::exchange(other.height_, 0))
-{}
+{
+    if (window_ != nullptr) {
+        glfwSetWindowUserPointer(window_, this);
+    }
+}
 
 Window& Window::operator=(Window&& other) noexcept
 {
@@ -133,6 +140,10 @@ Window& Window::operator=(Window&& other) noexcept
     window_ = std::exchange(other.window_, nullptr);
     width_ = std::exchange(other.width_, 0);
     height_ = std::exchange(other.height_, 0);
+
+    if (window_ != nullptr) {
+        glfwSetWindowUserPointer(window_, this);
+    }
 
     return *this;
 }

@@ -48,7 +48,7 @@ public:
     }
 
     [[nodiscard]] float
-    NormalizeHeight(const int height) const {
+    NormalizeHeight(const int height) const {\
         return static_cast<float>(height) / static_cast<float>(height_);
     }
 

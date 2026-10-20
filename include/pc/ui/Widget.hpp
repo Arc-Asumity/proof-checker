@@ -57,7 +57,7 @@ private:
 struct SubWidget
 {
     Widget widget_;
-    const Rect& rect_;
+    Rect rect_;
 
-    SubWidget(Widget widget, const Rect& rect);
+    SubWidget(Widget widget, Rect rect);
 };
