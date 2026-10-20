@@ -62,11 +62,13 @@ namespace
     constexpr char fragment_shader_source[] = R"(
         #version 460 core
 
+        uniform vec4 u_color;
+
         out vec4 fragment_color;
 
         void main()
         {
-            fragment_color = vec4(1.0, 1.0, 1.0, 1.0);
+            fragment_color = u_color;
         }
     )";
 
@@ -161,7 +163,7 @@ void Renderer::Init()
         } \
     } while (false)
 
-void Renderer::RenderPolygon(const PointSet& points) const
+void Renderer::RenderPolygon(const PointSet& points, const Color& color) const
 {
     if (points.size() < 3) {
         return;
@@ -176,6 +178,18 @@ void Renderer::RenderPolygon(const PointSet& points) const
     }
 
     glUseProgram(program_);
+
+    const GLint colorLocation =
+    glGetUniformLocation(program_, "u_color");
+
+    glUniform4f(
+        colorLocation,
+        color.r,
+        color.g,
+        color.b,
+        color.a
+    );
+
     glBindVertexArray(vao_);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_);
 

@@ -13,8 +13,9 @@
 #include <pc/ui/Widget.hpp>
 #include <pc/ui/Base.hpp>
 
-WidgetPart::WidgetPart(PointSet points)
+WidgetPart::WidgetPart(PointSet points, const Color color)
     : points_(std::move(points))
+    , color_(color)
 {}
 
 Widget::Widget(std::vector<WidgetPart> parts)
@@ -41,7 +42,7 @@ void WidgetPart::UpdateRect(const Rect& rect)
 
 void WidgetPart::Render(const Renderer& renderer) const
 {
-    renderer.RenderPolygon(points_temporary_);
+    renderer.RenderPolygon(points_temporary_, color_);
 }
 
 void Widget::UpdateRect(const Rect& rect_origin)

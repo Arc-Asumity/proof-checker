@@ -23,7 +23,7 @@ public:
     Renderer& operator=(Renderer&& other) noexcept;
 
     void Init();
-    void RenderPolygon(const PointSet& points) const;
+    void RenderPolygon(const PointSet& points, const Color& color) const;
 
 private:
     unsigned int program_{};

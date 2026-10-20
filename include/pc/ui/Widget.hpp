@@ -19,7 +19,7 @@ struct SubWidget;
 class WidgetPart
 {
 public:
-    explicit WidgetPart(PointSet points);
+    explicit WidgetPart(PointSet points, Color color);
 
     void UpdateRect(const Rect& rect);
     void Render(const Renderer& renderer) const;
@@ -27,6 +27,8 @@ public:
 private:
     PointSet points_{};
     PointSet points_temporary_{};
+
+    Color color_;
 
 };
 
