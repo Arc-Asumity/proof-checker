@@ -7,7 +7,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
 endif ()
 
 target_include_directories(ProofChecker PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(ProofChecker PRIVATE ProofChecker::Core ProofChecker::UI)
+target_link_libraries(ProofChecker PRIVATE ProofChecker::Core ProofChecker::UI ProofChecker::UI::Widget)
 
 add_subdirectory(core)
 add_subdirectory(ui)

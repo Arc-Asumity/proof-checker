@@ -7,6 +7,7 @@
 // Main of ProofChecker.
 
 #include <pc/core/Application.hpp>
+#include <pc/ui/widgets/Rectangle.hpp>
 
 int main(const int argc, char* argv[])
 {
@@ -17,16 +18,7 @@ int main(const int argc, char* argv[])
     }
 
     Widget& root = application->GetRoot();
-    root.GetSub().push_back(Widget({
-          WidgetPart{
-              PointSet{
-                  {.x = 0.25f, .y = 0.25f},
-                  {.x = 0.75f, .y = 0.25f},
-                  {.x = 0.75f, .y = 0.75f},
-                  {.x = 0.25f, .y = 0.75f}
-              }
-          }
-      }));
+    root.GetSub().push_back(MakeRectangle());
 
     application->Run();
 
