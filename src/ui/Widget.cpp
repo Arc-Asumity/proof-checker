@@ -69,6 +69,6 @@ void Widget::Render(Renderer& renderer)
 }
 
 SubWidget::SubWidget(Widget widget, const Rect& rect)
-    : widget(std::move(widget))
-    , rect(rect)
+    : widget_(std::move(widget))
+    , rect_(rect)
 {}

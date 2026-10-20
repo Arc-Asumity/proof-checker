@@ -10,7 +10,11 @@
 
 #include <expected>
 #define GLFW_INCLUDE_NONE
+#include <iostream>
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
+
+constexpr float kScale = 2.0f / 3.0f;
 
 enum class WindowError
 {
@@ -37,6 +41,29 @@ public:
 
     Window(Window&& other) noexcept;
     Window& operator=(Window&& other) noexcept;
+
+    [[nodiscard]] float
+    NormalizeWidth(const int width) const {
+        return static_cast<float>(width) / static_cast<float>(width_);
+    }
+
+    [[nodiscard]] float
+    NormalizeHeight(const int height) const {
+        return static_cast<float>(height) / static_cast<float>(height_);
+    }
+
+    static void FramebufferSizeCallback(
+        GLFWwindow* window, const int width, const int height)
+    {
+        auto* self = static_cast<Window*>(
+            glfwGetWindowUserPointer(window));
+        if (!self) return;
+
+        self->width_ = width;
+        self->height_ = height;
+
+        glViewport(0, 0, width, height);
+    }
 
 private:
     GLFWwindow* window_{};

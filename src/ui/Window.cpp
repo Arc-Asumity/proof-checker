@@ -30,16 +30,13 @@ Window::Create(const char* title)
         );
     }
 
-    self.width_ = mode->width * 2 / 3;
-    self.height_ = mode->height *2 / 3;
-
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     auto* window = glfwCreateWindow(
-        self.width_,
-        self.height_,
+        static_cast<int>(static_cast<float>(mode->width) * kScale),
+        static_cast<int>(static_cast<float>(mode->height) * kScale),
         title,
         nullptr,
         nullptr
@@ -56,8 +53,8 @@ Window::Create(const char* title)
 
     glfwSetWindowPos(
         window,
-        monitorX + (mode->width - self.width_) / 2,
-        monitorY + (mode->height - self.height_) / 2
+        monitorX + static_cast<int>(static_cast<float>(mode->width) * (1 - kScale) / 2),
+        monitorY + static_cast<int>(static_cast<float>(mode->height) * (1 - kScale) / 2)
     );
 
     glfwMakeContextCurrent(window);
@@ -81,11 +78,10 @@ Window::Create(const char* title)
 
     glViewport(0, 0, framebufferWidth, framebufferHeight);
 
+    glfwSetWindowUserPointer(window, &self);
     glfwSetFramebufferSizeCallback(
         window,
-        [](GLFWwindow*, const int w, const int h) {
-            glViewport(0, 0, w, h);
-        }
+        FramebufferSizeCallback
     );
 
     self.window_ = window;

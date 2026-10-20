@@ -49,18 +49,16 @@ namespace MainWidget
         .height = 1.0f
     };
 
-    constexpr float kLayout = 0.05f;
+    constexpr int kLayout = 1000;
 
-    constexpr std::pair<Rect, Rect> kRectTopBottom = kMain.SplitY(kLayout, 1.0f - kLayout);
-    constexpr Rect kRectTop = kRectTopBottom.first;
-    constexpr Rect kRectBottom = kRectTopBottom.second;
-
-    constexpr Widget MakeMain(Widget top_widget, Widget bottom_widget)
+    inline Widget MakeMain(const Window& window, Widget top_widget, Widget bottom_widget)
     {
+        const float layout = window.NormalizeHeight(kLayout);
+        auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
         Widget result;
         std::vector<SubWidget>& sub = result.GetSub();
-        sub.emplace_back(std::move(top_widget), kRectTop);
-        sub.emplace_back(std::move(bottom_widget), kRectBottom);
+        sub.emplace_back(std::move(top_widget), top);
+        sub.emplace_back(std::move(bottom_widget), bottom);
 
         return result;
     }

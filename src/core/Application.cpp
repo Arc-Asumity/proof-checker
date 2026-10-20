@@ -43,6 +43,7 @@ void Application::Run()
 
         {
             root_ = MainWidget::MakeMain(
+                window_,
                 MakeRectangle(Color{.r = 0.1f, .g = 0.1f, .b = 0.1f, .a = 1.0f}),
                 MakeRectangle(Color{.r = 0.3f, .g = 0.3f, .b = 0.3f, .a = 1.0f})
             );
