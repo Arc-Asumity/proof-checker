@@ -9,6 +9,7 @@
 #pragma once
 
 #include <vector>
+#include <ostream>
 
 struct Point
 {

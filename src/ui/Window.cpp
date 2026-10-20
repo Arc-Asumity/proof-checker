@@ -147,3 +147,18 @@ Window& Window::operator=(Window&& other) noexcept
 
     return *this;
 }
+
+bool Window::IsMousePressed(const int button) const
+{
+    return glfwGetMouseButton(window_, button) == GLFW_PRESS;
+}
+
+Point Window::GetMousePosition() const
+{
+    double x{}, y{};
+    glfwGetCursorPos(window_, &x, &y);
+    return Point{
+        .x = static_cast<float>(x),
+        .y = static_cast<float>(y)
+    };
+}

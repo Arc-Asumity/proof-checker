@@ -39,6 +39,21 @@ void Application::Run()
     while (!window_.ShouldClose()) {
         Window::PollEvents();
 
+        if (window_.IsMousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
+            if (!is_press_) {
+                is_press_ = true;
+                press_position_ = window_.GetMousePosition();
+            }
+        } else
+        {
+            if (is_press_)
+            {
+                is_press_ = false;
+                // TODO(press)
+                std::cout << "Click From " << press_position_ << " To " << window_.GetMousePosition() << std::endl;
+            }
+        }
+
         glClear(GL_COLOR_BUFFER_BIT);
 
         {

@@ -10,9 +10,10 @@
 
 #include <expected>
 #define GLFW_INCLUDE_NONE
-#include <iostream>
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
+
+#include <pc/ui/Base.hpp>
 
 constexpr float kScale = 2.0f / 3.0f;
 
@@ -48,9 +49,12 @@ public:
     }
 
     [[nodiscard]] float
-    NormalizeHeight(const int height) const {\
+    NormalizeHeight(const int height) const {
         return static_cast<float>(height) / static_cast<float>(height_);
     }
+
+    [[nodiscard]] bool IsMousePressed(int button) const;
+    [[nodiscard]] Point GetMousePosition() const;
 
     static void FramebufferSizeCallback(
         GLFWwindow* window, const int width, const int height)

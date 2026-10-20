@@ -38,6 +38,10 @@ private:
     Widget root_;
     Renderer render_;
 
+    bool is_press_ = false;
+    Point press_position_;
+    Widget* press_widget_;
+
 };
 
 namespace MainWidget
