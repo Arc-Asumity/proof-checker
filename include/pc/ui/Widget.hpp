@@ -14,12 +14,14 @@
 #include <pc/ui/Base.hpp>
 #include <pc/ui/Renderer.hpp>
 
+struct SubWidget;
+
 class WidgetPart
 {
 public:
     explicit WidgetPart(PointSet points);
 
-    void UpdateRect(Rect& rect);
+    void UpdateRect(const Rect& rect);
     void Render(const Renderer& renderer) const;
 
 private:
@@ -35,9 +37,9 @@ public:
 
     explicit Widget(std::vector<WidgetPart> parts);
 
-    std::vector<Widget>& GetSub();
+    std::vector<SubWidget>& GetSub();
 
-    void UpdateRect(Rect& rect);
+    void UpdateRect(const Rect& rect);
     void Render(Renderer& renderer);
 
 private:
@@ -46,7 +48,14 @@ private:
     PointSet hits_{};
     PointSet hits_temporary_{};
 
-    std::vector<Widget> sub_{};
-    float* rects_{};
+    std::vector<SubWidget> sub_{};
 
+};
+
+struct SubWidget
+{
+    Widget widget;
+    Rect& rect;
+
+    SubWidget(Widget  widget, Rect& rect);
 };

@@ -55,6 +55,8 @@ struct Rect
     [[nodiscard]] Point
     Translate(Point point) const;
 
+    Rect operator*(const Rect& other) const;
+
 private:
     void SplitXs(const float* xs, Rect* result, size_t size) const;
     void SplitYs(const float* ys, Rect* result, size_t size) const;

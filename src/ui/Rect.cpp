@@ -102,3 +102,13 @@ Point Rect::Translate(const Point point) const
 {
     return Translate(point.x, point.y);
 }
+
+Rect Rect::operator*(const Rect& other) const
+{
+    return Rect{
+        .x = x + other.x * width,
+        .y = y + other.y * height,
+        .width = other.width * width,
+        .height = other.height * height
+    };
+}

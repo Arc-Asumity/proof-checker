@@ -21,12 +21,12 @@ Widget::Widget(std::vector<WidgetPart> parts)
     : parts_(std::move(parts))
 {}
 
-std::vector<Widget>& Widget::GetSub()
+std::vector<SubWidget>& Widget::GetSub()
 {
     return sub_;
 }
 
-void WidgetPart::UpdateRect(Rect& rect)
+void WidgetPart::UpdateRect(const Rect& rect)
 {
     points_temporary_.resize(points_.size());
     std::ranges::transform(
@@ -44,14 +44,15 @@ void WidgetPart::Render(const Renderer& renderer) const
     renderer.RenderPolygon(points_temporary_);
 }
 
-void Widget::UpdateRect(Rect& rect)
+void Widget::UpdateRect(const Rect& rect_origin)
 {
     for (WidgetPart& part : parts_) {
-        part.UpdateRect(rect);
+        part.UpdateRect(rect_origin);
     }
 
-    for (Widget& widget : sub_) {
-        widget.UpdateRect(rect);
+    for (auto& [widget, rect] : sub_) {
+        Rect rect_child = rect_origin * rect;
+        widget.UpdateRect(rect_child);
     }
 }
 
@@ -61,7 +62,12 @@ void Widget::Render(Renderer& renderer)
         part.Render(renderer);
     }
 
-    for (Widget& widget : sub_) {
+    for (auto& [widget, _rect] : sub_) {
         widget.Render(renderer);
     }
 }
+
+SubWidget::SubWidget(Widget  widget, Rect& rect)
+    : widget(std::move(widget))
+    , rect(rect)
+{}

@@ -18,7 +18,9 @@ int main(const int argc, char* argv[])
     }
 
     Widget& root = application->GetRoot();
-    root.GetSub().push_back(MakeRectangle());
+
+    auto rect = Rect{.x = 0.25f, .y = 0.25f, .width = 0.5f, .height = 0.5f};
+    root.GetSub().emplace_back(MakeRectangle(), rect);
 
     application->Run();
 
