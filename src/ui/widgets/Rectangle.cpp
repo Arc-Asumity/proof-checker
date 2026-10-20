@@ -8,7 +8,7 @@
 
 #include <pc/ui/widgets/Rectangle.hpp>
 
-Widget MakeRectangle()
+Widget MakeRectangle(const Color color)
 {
     return Widget{
         std::vector{
@@ -19,12 +19,7 @@ Widget MakeRectangle()
                     {.x = 1.0f, .y = 1.0f},
                     {.x = 0.0f, .y = 1.0f}
                 },
-                Color{
-                    .r = 0.2f,
-                    .g = 0.5f,
-                    .b = 0.8f,
-                    .a = 1.0f
-                }
+                color
             }
         }
     };

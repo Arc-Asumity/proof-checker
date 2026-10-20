@@ -9,6 +9,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 
 #include <pc/ui/Base.hpp>
 
@@ -19,10 +20,26 @@ struct Rect
     float width;
     float height;
 
-    [[nodiscard]] std::pair<Rect, Rect>
-    SplitX(float left, float right) const;
-    [[nodiscard]] std::pair<Rect, Rect>
-    SplitY(float top, float bottom) const;
+    [[nodiscard]] constexpr std::pair<Rect, Rect>
+    SplitX(const float left, const float right) const
+    {
+        Rect left_rect = *this;
+        left_rect.width = left * this->width / (left + right);
+        Rect right_rect = *this;
+        right_rect.width = this->width - left_rect.width;
+        right_rect.x = left_rect.x + left_rect.width;
+        return {left_rect, right_rect};
+    }
+    [[nodiscard]] constexpr  std::pair<Rect, Rect>
+    SplitY(const float top, const float bottom) const
+    {
+        Rect top_rect = *this;
+        top_rect.height = top * this->height / (top + bottom);
+        Rect bottom_rect = *this;
+        bottom_rect.height = this->height - top_rect.height;
+        bottom_rect.y = top_rect.y + top_rect.height;
+        return {top_rect, bottom_rect};
+    }
 
     [[nodiscard]] std::vector<Rect>
     SplitXs(const std::vector<float>& xs) const;
@@ -61,3 +78,5 @@ private:
     void SplitXs(const float* xs, Rect* result, size_t size) const;
     void SplitYs(const float* ys, Rect* result, size_t size) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Rect& rect);

@@ -10,26 +10,6 @@
 #include <numeric>
 #include <pc/ui/Rect.hpp>
 
-std::pair<Rect, Rect> Rect::SplitX(const float left, const float right) const
-{
-    Rect left_rect = *this;
-    left_rect.width = left * this->width / (left + right);
-    Rect right_rect = *this;
-    right_rect.width = this->width - left_rect.width;
-    right_rect.x = left_rect.x + left_rect.width;
-    return {left_rect, right_rect};
-}
-
-std::pair<Rect, Rect> Rect::SplitY(const float top, const float bottom) const
-{
-    Rect top_rect = *this;
-    top_rect.height = top * this->height / (top + bottom);
-    Rect bottom_rect = *this;
-    bottom_rect.height = this->height - top_rect.height;
-    bottom_rect.y = top_rect.y + top_rect.height;
-    return {top_rect, bottom_rect};
-}
-
 std::vector<Rect> Rect::SplitXs(const std::vector<float>& xs) const
 {
     std::vector<Rect> result(xs.size());
@@ -111,4 +91,13 @@ Rect Rect::operator*(const Rect& other) const
         .width = other.width * width,
         .height = other.height * height
     };
+}
+
+std::ostream& operator<<(std::ostream& os, const Rect& rect)
+{
+    return os << "Rect{ x=" << rect.x
+              << ", y=" << rect.y
+              << ", width=" << rect.width
+              << ", height=" << rect.height
+              << " }";
 }

@@ -6,9 +6,10 @@
 // Path /src/core/Application.cpp
 // Application.
 
-#include <pc/core/Application.hpp>
-
 #include <glad/gl.h>
+
+#include <pc/core/Application.hpp>
+#include <pc/ui/widgets/Rectangle.hpp>
 
 std::expected<Application, WindowError>
 Application::Create(const char* title)
@@ -33,7 +34,7 @@ Application::Application(Window window)
 
 void Application::Run()
 {
-    glClearColor(0.08f, 0.09f, 0.12f, 1.0f);
+    glClearColor(0, 0, 0, 1);
 
     while (!window_.ShouldClose()) {
         Window::PollEvents();
@@ -41,14 +42,11 @@ void Application::Run()
         glClear(GL_COLOR_BUFFER_BIT);
 
         {
-            Rect rect{
-                .x = 0.0f,
-                .y = 0.0f,
-                .width = 1.0f,
-                .height = 1.0f
-            };
-
-            root_.UpdateRect(rect);
+            root_ = MainWidget::MakeMain(
+                MakeRectangle(Color{.r = 0.1f, .g = 0.1f, .b = 0.1f, .a = 1.0f}),
+                MakeRectangle(Color{.r = 0.3f, .g = 0.3f, .b = 0.3f, .a = 1.0f})
+            );
+            root_.UpdateRect(MainWidget::kMain);
             root_.Render(render_);
         }
 

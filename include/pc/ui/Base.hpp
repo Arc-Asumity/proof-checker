@@ -25,3 +25,15 @@ struct Color
     float b;
     float a;
 };
+
+inline std::ostream& operator<<(std::ostream& os, const Point& point)
+{
+    return os << "Point{ x=" << point.x
+              << ", y=" << point.y
+              << " }";
+}
+
+inline std::ostream& operator<<(std::ostream& os, const std::vector<Point>& points)
+{
+    return os << points;
+}

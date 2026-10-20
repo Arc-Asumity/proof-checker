@@ -37,4 +37,31 @@ private:
     Window window_;
     Widget root_;
     Renderer render_;
+
 };
+
+namespace MainWidget
+{
+    constexpr auto kMain = Rect{
+        .x = 0.0f,
+        .y = 0.0f,
+        .width = 1.0f,
+        .height = 1.0f
+    };
+
+    constexpr float kLayout = 0.05f;
+
+    constexpr std::pair<Rect, Rect> kRectTopBottom = kMain.SplitY(kLayout, 1.0f - kLayout);
+    constexpr Rect kRectTop = kRectTopBottom.first;
+    constexpr Rect kRectBottom = kRectTopBottom.second;
+
+    constexpr Widget MakeMain(Widget top_widget, Widget bottom_widget)
+    {
+        Widget result;
+        std::vector<SubWidget>& sub = result.GetSub();
+        sub.emplace_back(std::move(top_widget), kRectTop);
+        sub.emplace_back(std::move(bottom_widget), kRectBottom);
+
+        return result;
+    }
+}
