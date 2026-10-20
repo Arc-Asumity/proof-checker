@@ -22,7 +22,7 @@ enum class WindowError
 class Window {
 public:
     static std::expected<Window, WindowError>
-    Create(int width, int height, const char* title);
+    Create(const char* title);
 
     ~Window();
 
@@ -40,6 +40,9 @@ public:
 
 private:
     GLFWwindow* window_{};
+
+    int width_{};
+    int height_{};
 
     Window() = default;
     explicit Window(GLFWwindow* window)

@@ -11,13 +11,9 @@
 #include <glad/gl.h>
 
 std::expected<Application, WindowError>
-Application::Create()
+Application::Create(const char* title)
 {
-    auto window = Window::Create(
-        1280,
-        720,
-        "Proof Checker"
-    );
+    auto window = Window::Create(title);
 
     if (!window) {
         return std::unexpected(window.error());

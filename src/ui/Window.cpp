@@ -11,19 +11,35 @@
 #include <pc/ui/Window.hpp>
 
 std::expected<Window, WindowError>
-Window::Create(const int width, const int height, const char* title)
+Window::Create(const char* title)
 {
+    Window self;
+
     if (glfwInit() == GLFW_FALSE) {
         return std::unexpected(WindowError::GlfwInitializationFailed);
     }
+
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode =
+        glfwGetVideoMode(monitor);
+
+    if (monitor == nullptr || mode == nullptr) {
+        glfwTerminate();
+        return std::unexpected(
+            WindowError::WindowCreationFailed
+        );
+    }
+
+    self.width_ = mode->width * 2 / 3;
+    self.height_ = mode->height *2 / 3;
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     auto* window = glfwCreateWindow(
-        width,
-        height,
+        self.width_,
+        self.height_,
         title,
         nullptr,
         nullptr
@@ -34,22 +50,47 @@ Window::Create(const int width, const int height, const char* title)
         return std::unexpected(WindowError::WindowCreationFailed);
     }
 
+    int monitorX = 0;
+    int monitorY = 0;
+    glfwGetMonitorPos(monitor, &monitorX, &monitorY);
+
+    glfwSetWindowPos(
+        window,
+        monitorX + (mode->width - self.width_) / 2,
+        monitorY + (mode->height - self.height_) / 2
+    );
+
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    if (gladLoadGL(glfwGetProcAddress) == 0)
-    {
+    if (gladLoadGL(glfwGetProcAddress) == 0) {
         glfwDestroyWindow(window);
         glfwTerminate();
-
         return std::unexpected(
             WindowError::OpenGLLoaderInitializationFailed
         );
     }
 
-    glViewport(0, 0, width, height);
+    int framebufferWidth = 0;
+    int framebufferHeight = 0;
+    glfwGetFramebufferSize(
+        window,
+        &framebufferWidth,
+        &framebufferHeight
+    );
 
-    return Window{window};
+    glViewport(0, 0, self.width_, self.height_);
+
+    glfwSetFramebufferSizeCallback(
+        window,
+        [](GLFWwindow*, const int w, const int h) {
+            glViewport(0, 0, w, h);
+        }
+    );
+
+    self.window_ = window;
+
+    return self;
 }
 
 Window::~Window()

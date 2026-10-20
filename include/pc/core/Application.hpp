@@ -17,7 +17,7 @@
 class Application
 {
 public:
-    static std::expected<Application, WindowError> Create();
+    static std::expected<Application, WindowError> Create(const char* title);
 
     ~Application() = default;
 

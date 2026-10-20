@@ -11,7 +11,7 @@
 
 int main(const int argc, char* argv[])
 {
-    auto application = Application::Create();
+    auto application = Application::Create("Proof Checker");
 
     if (!application) {
         return 1;
