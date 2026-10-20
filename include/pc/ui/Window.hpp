@@ -47,9 +47,17 @@ public:
     NormalizeWidth(const int width) const {
         return static_cast<float>(width) / static_cast<float>(width_);
     }
+    [[nodiscard]] float
+    NormalizeWidth(const double width) const {
+        return static_cast<float>(width) / static_cast<float>(width_);
+    }
 
     [[nodiscard]] float
     NormalizeHeight(const int height) const {
+        return static_cast<float>(height) / static_cast<float>(height_);
+    }
+    [[nodiscard]] float
+    NormalizeHeight(const double height) const {
         return static_cast<float>(height) / static_cast<float>(height_);
     }
 

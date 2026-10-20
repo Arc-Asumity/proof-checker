@@ -43,6 +43,7 @@ void Application::Run()
             if (!is_press_) {
                 is_press_ = true;
                 press_position_ = window_.GetMousePosition();
+                GetPressedWidget(press_position_)->HandlePressed(press_position_);
             }
         } else
         {
@@ -73,4 +74,9 @@ void Application::Run()
 Widget& Application::GetRoot()
 {
     return root_;
+}
+
+Widget* Application::GetPressedWidget(const Point& point)
+{
+    return root_.GetPressedWidget(point);
 }

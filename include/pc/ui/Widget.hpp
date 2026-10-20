@@ -38,13 +38,21 @@ public:
     Widget() = default;
 
     explicit Widget(std::vector<WidgetPart> parts);
+    explicit Widget(std::vector<WidgetPart> parts, PointSet hits);
 
     std::vector<SubWidget>& GetSub();
 
     void UpdateRect(const Rect& rect);
     void Render(Renderer& renderer);
 
+    void SetParent(Widget* parent);
+
+    Widget* GetPressedWidget(const Point& point);
+    void HandlePressed(const Point& point);
+
 private:
+    Widget* parent_{};
+
     std::vector<WidgetPart> parts_{};
 
     PointSet hits_{};

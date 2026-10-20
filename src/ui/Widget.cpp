@@ -12,6 +12,7 @@
 
 #include <pc/ui/Widget.hpp>
 #include <pc/ui/Base.hpp>
+#include <pc/Definition.hpp>
 
 WidgetPart::WidgetPart(PointSet points, const Color color)
     : points_(std::move(points))
@@ -20,6 +21,11 @@ WidgetPart::WidgetPart(PointSet points, const Color color)
 
 Widget::Widget(std::vector<WidgetPart> parts)
     : parts_(std::move(parts))
+{}
+
+Widget::Widget(std::vector<WidgetPart> parts, PointSet hits)
+    : parts_(std::move(parts))
+    , hits_(std::move(hits))
 {}
 
 std::vector<SubWidget>& Widget::GetSub()
@@ -66,6 +72,24 @@ void Widget::Render(Renderer& renderer)
     for (auto& [widget, _rect] : sub_) {
         widget.Render(renderer);
     }
+}
+
+void Widget::SetParent(Widget* parent)
+{
+    parent_ = parent;
+}
+
+Widget* Widget::GetPressedWidget(const Point& point)
+{
+    for (auto& [widget, rect] : sub_)
+        if (mathematics::ContainsConvexPolygon(widget.hits_temporary_, point))
+            return widget.GetPressedWidget(point);
+    return this;
+}
+
+void Widget::HandlePressed(const Point& point)
+{
+    std::cout << "Handle the Pressed" << std::endl;
 }
 
 SubWidget::SubWidget(Widget widget, const Rect rect)

@@ -31,6 +31,8 @@ public:
 
     Widget& GetRoot();
 
+    Widget* GetPressedWidget(const Point& point);
+
 private:
     explicit Application(Window window);
 
@@ -60,6 +62,8 @@ namespace MainWidget
         const float layout = window.NormalizeHeight(kLayout);
         auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
         Widget result;
+        top_widget.SetParent(&result);
+        bottom_widget.SetParent(&result);
         std::vector<SubWidget>& sub = result.GetSub();
         sub.emplace_back(std::move(top_widget), top);
         sub.emplace_back(std::move(bottom_widget), bottom);

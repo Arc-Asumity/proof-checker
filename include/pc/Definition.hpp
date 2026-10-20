@@ -10,10 +10,38 @@
 
 #include <cstdint>
 
+#include <pc/ui/Base.hpp>
+
 namespace document
 {
     constexpr size_t kGapFillSize = 8;
     constexpr size_t kGapEmptySize = 16;
     constexpr size_t kGapSize = kGapFillSize + kGapEmptySize;
 
+}
+
+namespace mathematics
+{
+    inline float Cross(const Point& a, const Point& b, const Point& p)
+    {
+        return (b.x - a.x) * (p.y - a.y)
+             - (b.y - a.y) * (p.x - a.x);
+    }
+
+    inline bool ContainsConvexPolygon(const PointSet& polygon, const Point& p)
+    {
+        if (polygon.size() < 3)
+            return false;
+
+        for (std::size_t i = 0; i < polygon.size(); ++i)
+        {
+            const Point& a = polygon[i];
+            const Point& b = polygon[(i + 1) % polygon.size()];
+
+            if (Cross(a, b, p) < 0.0f)
+                return false;
+        }
+
+        return true;
+    }
 }

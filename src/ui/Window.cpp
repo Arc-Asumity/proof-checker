@@ -158,7 +158,7 @@ Point Window::GetMousePosition() const
     double x{}, y{};
     glfwGetCursorPos(window_, &x, &y);
     return Point{
-        .x = static_cast<float>(x),
-        .y = static_cast<float>(y)
+        .x = NormalizeWidth(x),
+        .y = NormalizeHeight(y)
     };
 }
