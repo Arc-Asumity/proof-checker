@@ -33,7 +33,6 @@ Application::Application(Window window)
 
 void Application::Run()
 {
-    glViewport(0, 0, 1280, 720);
     glClearColor(0.08f, 0.09f, 0.12f, 1.0f);
 
     while (!window_.ShouldClose()) {

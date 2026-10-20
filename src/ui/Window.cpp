@@ -79,7 +79,7 @@ Window::Create(const char* title)
         &framebufferHeight
     );
 
-    glViewport(0, 0, self.width_, self.height_);
+    glViewport(0, 0, framebufferWidth, framebufferHeight);
 
     glfwSetFramebufferSizeCallback(
         window,
@@ -117,7 +117,10 @@ bool Window::ShouldClose() const
     return glfwWindowShouldClose(window_);
 }
 
-Window::Window(Window&& other) noexcept : window_(std::exchange(other.window_, nullptr))
+Window::Window(Window&& other) noexcept
+    : window_(std::exchange(other.window_, nullptr))
+    , width_(std::exchange(other.width_, 0))
+    , height_(std::exchange(other.height_, 0))
 {}
 
 Window& Window::operator=(Window&& other) noexcept
@@ -132,6 +135,8 @@ Window& Window::operator=(Window&& other) noexcept
     }
 
     window_ = std::exchange(other.window_, nullptr);
+    width_ = std::exchange(other.width_, 0);
+    height_ = std::exchange(other.height_, 0);
 
     return *this;
 }
