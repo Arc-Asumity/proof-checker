@@ -46,8 +46,6 @@ void Application::Run()
     while (!window_.ShouldClose()) {
         Window::PollEvents();
 
-        root_.UpdateRect(MainWidget::kMain);
-
         if (window_.IsMousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
             if (!is_press_) {
                 is_press_ = true;

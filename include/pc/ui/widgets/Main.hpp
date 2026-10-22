@@ -33,6 +33,8 @@ namespace MainWidget
         sub.emplace_back(std::move(top_widget), top);
         sub.emplace_back(std::move(bottom_widget), bottom);
 
+        result.UpdateRect(kMain);
+
         return result;
     }
 
@@ -45,5 +47,7 @@ namespace MainWidget
         auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
         sub[0].rect_ = top;
         sub[1].rect_ = bottom;
+
+        main->UpdateRect(kMain);
     }
 }
