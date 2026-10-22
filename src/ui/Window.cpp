@@ -162,3 +162,18 @@ Point Window::GetMousePosition() const
         .y = NormalizeHeight(y)
     };
 }
+
+void Window::LoadRoot(Widget* root)
+{
+    root_ = root;
+}
+
+int Window::GetWidth() const
+{
+    return width_;
+}
+
+int Window::GetHeight() const
+{
+    return height_;
+}

@@ -40,7 +40,7 @@ void Application::Run()
         Window::PollEvents();
 
         root_ = MainWidget::MakeMain(
-            window_,
+            window_.GetHeight(),
             MakeRectangle(Color{.r = 0.1f, .g = 0.1f, .b = 0.1f, .a = 1.0f}),
             MakeRectangle(Color{.r = 0.15f, .g = 0.15f, .b = 0.15f, .a = 1.0f})
         );

@@ -45,29 +45,3 @@ private:
     Widget* press_widget_ = nullptr;
 
 };
-
-namespace MainWidget
-{
-    constexpr auto kMain = Rect{
-        .x = 0.0f,
-        .y = 0.0f,
-        .width = 1.0f,
-        .height = 1.0f
-    };
-
-    constexpr int kLayout = 70;
-
-    inline Widget MakeMain(const Window& window, Widget top_widget, Widget bottom_widget)
-    {
-        const float layout = window.NormalizeHeight(kLayout);
-        auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
-        Widget result;
-        top_widget.SetParent(&result);
-        bottom_widget.SetParent(&result);
-        std::vector<SubWidget>& sub = result.GetSub();
-        sub.emplace_back(std::move(top_widget), top);
-        sub.emplace_back(std::move(bottom_widget), bottom);
-
-        return result;
-    }
-}

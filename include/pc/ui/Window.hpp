@@ -14,6 +14,8 @@
 #include <GLFW/glfw3.h>
 
 #include <pc/ui/Base.hpp>
+#include <pc/ui/Widget.hpp>
+#include <pc/ui/widgets/Main.hpp>
 
 constexpr float kScale = 2.0f / 3.0f;
 
@@ -64,6 +66,11 @@ public:
     [[nodiscard]] bool IsMousePressed(int button) const;
     [[nodiscard]] Point GetMousePosition() const;
 
+    void LoadRoot(Widget* root);
+
+    int GetWidth() const;
+    int GetHeight() const;
+
     static void FramebufferSizeCallback(
         GLFWwindow* window, const int width, const int height)
     {
@@ -74,6 +81,8 @@ public:
         self->width_ = width;
         self->height_ = height;
 
+        MainWidget::RemakeMain(self->height_, self->root_);
+
         glViewport(0, 0, width, height);
     }
 
@@ -82,6 +91,8 @@ private:
 
     int width_{};
     int height_{};
+
+    Widget* root_{};
 
     Window() = default;
     explicit Window(GLFWwindow* window)
