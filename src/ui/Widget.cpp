@@ -61,6 +61,16 @@ void Widget::UpdateRect(const Rect& rect_origin)
         Rect rect_child = rect_origin * rect;
         widget.UpdateRect(rect_child);
     }
+
+    hits_temporary_.resize(hits_.size());
+    std::ranges::transform(
+        hits_,
+        hits_temporary_.begin(),
+        [&rect_origin](const Point& point)
+        {
+            return rect_origin.Translate(point);
+        }
+    );
 }
 
 void Widget::Render(Renderer& renderer)

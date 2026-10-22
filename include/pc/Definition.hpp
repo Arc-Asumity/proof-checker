@@ -8,8 +8,6 @@
 
 #pragma once
 
-#include <cstdint>
-
 #include <pc/ui/Base.hpp>
 
 namespace document
@@ -36,9 +34,8 @@ namespace mathematics
         for (std::size_t i = 0; i < polygon.size(); ++i)
         {
             const Point& a = polygon[i];
-            const Point& b = polygon[(i + 1) % polygon.size()];
 
-            if (Cross(a, b, p) < 0.0f)
+            if (const Point& b = polygon[(i + 1) % polygon.size()]; Cross(a, b, p) < 0.0f)
                 return false;
         }
 

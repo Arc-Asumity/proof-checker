@@ -26,8 +26,8 @@ Application::Create(const char* title)
 }
 
 Application::Application(Window window)
-    : window_(std::move(window)),
-      render_(Renderer())
+    : window_(std::move(window))
+    , render_(Renderer())
 {
     render_.Init();
 }
@@ -38,6 +38,13 @@ void Application::Run()
 
     while (!window_.ShouldClose()) {
         Window::PollEvents();
+
+        root_ = MainWidget::MakeMain(
+            window_,
+            MakeRectangle(Color{.r = 0.1f, .g = 0.1f, .b = 0.1f, .a = 1.0f}),
+            MakeRectangle(Color{.r = 0.15f, .g = 0.15f, .b = 0.15f, .a = 1.0f})
+        );
+        root_.UpdateRect(MainWidget::kMain);
 
         if (window_.IsMousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
             if (!is_press_) {
@@ -57,15 +64,7 @@ void Application::Run()
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        {
-            root_ = MainWidget::MakeMain(
-                window_,
-                MakeRectangle(Color{.r = 0.1f, .g = 0.1f, .b = 0.1f, .a = 1.0f}),
-                MakeRectangle(Color{.r = 0.15f, .g = 0.15f, .b = 0.15f, .a = 1.0f})
-            );
-            root_.UpdateRect(MainWidget::kMain);
-            root_.Render(render_);
-        }
+        root_.Render(render_);
 
         window_.SwapBuffers();
     }

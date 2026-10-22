@@ -41,8 +41,8 @@ private:
     Renderer render_;
 
     bool is_press_ = false;
-    Point press_position_;
-    Widget* press_widget_;
+    Point press_position_{};
+    Widget* press_widget_ = nullptr;
 
 };
 
