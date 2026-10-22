@@ -38,9 +38,11 @@ namespace MainWidget
 
     inline void RemakeMain(const int& height, Widget* main)
     {
+        std::vector<SubWidget>& sub = main->GetSub();
+        if (sub.size() < 2)
+            return;
         const float layout = static_cast<float>(kLayout) / static_cast<float>(height);
         auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
-        std::vector<SubWidget>& sub = main->GetSub();
         sub[0].rect_ = top;
         sub[1].rect_ = bottom;
     }

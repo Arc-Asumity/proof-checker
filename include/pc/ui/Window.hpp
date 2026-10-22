@@ -68,8 +68,8 @@ public:
 
     void LoadRoot(Widget* root);
 
-    int GetWidth() const;
-    int GetHeight() const;
+    [[nodiscard]] int GetWidth() const;
+    [[nodiscard]] int GetHeight() const;
 
     static void FramebufferSizeCallback(
         GLFWwindow* window, const int width, const int height)
