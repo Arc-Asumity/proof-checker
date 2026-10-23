@@ -13,29 +13,29 @@
 
 namespace MainWidget
 {
-    constexpr auto kMain = Rect{
-        .x = 0.0f,
-        .y = 0.0f,
-        .width = 1.0f,
-        .height = 1.0f
-    };
+    constexpr int kMenuHeight = 70;
 
-    constexpr int kLayout = 70;
-
-    inline Widget MakeMain(const int& height, Widget top_widget, Widget bottom_widget)
+    inline Widget MakeMain(const int& height)
     {
-        const float layout = static_cast<float>(kLayout) / static_cast<float>(height);
-        auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
+        const float layout = static_cast<float>(kMenuHeight) / static_cast<float>(height);
+        auto [top, bottom] = kFullRect.SplitY(layout, 1.0f - layout);
         Widget result;
-        top_widget.SetParent(&result);
-        bottom_widget.SetParent(&result);
         std::vector<SubWidget>& sub = result.GetSub();
-        sub.emplace_back(std::move(top_widget), top);
-        sub.emplace_back(std::move(bottom_widget), bottom);
+        sub.emplace_back(Widget(), top);
+        sub.emplace_back(Widget(), bottom);
 
-        result.UpdateRect(kMain);
+        result.UpdateRect(kFullRect);
 
         return result;
+    }
+
+    inline void LoadSub(Widget& main, Widget top, Widget bottom)
+    {
+        std::vector<SubWidget> sub = main.GetSub();
+        sub[0].widget_ = std::move(top);
+        sub[0].widget_.SetParent(&main);
+        sub[1].widget_ = std::move(bottom);
+        sub[1].widget_.SetParent(&main);
     }
 
     inline void RemakeMain(const int& height, Widget* main)
@@ -43,11 +43,11 @@ namespace MainWidget
         std::vector<SubWidget>& sub = main->GetSub();
         if (sub.size() < 2)
             return;
-        const float layout = static_cast<float>(kLayout) / static_cast<float>(height);
-        auto [top, bottom] = kMain.SplitY(layout, 1.0f - layout);
+        const float layout = static_cast<float>(kMenuHeight) / static_cast<float>(height);
+        auto [top, bottom] = kFullRect.SplitY(layout, 1.0f - layout);
         sub[0].rect_ = top;
         sub[1].rect_ = bottom;
 
-        main->UpdateRect(kMain);
+        main->UpdateRect(kFullRect);
     }
 }

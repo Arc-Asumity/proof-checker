@@ -9,7 +9,6 @@
 #pragma once
 
 #include <vector>
-#include <iostream>
 
 #include <pc/ui/Base.hpp>
 
@@ -80,3 +79,10 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& os, const Rect& rect);
+
+constexpr auto kFullRect = Rect{
+    .x = 0.0f,
+    .y = 0.0f,
+    .width = 1.0f,
+    .height = 1.0f
+};

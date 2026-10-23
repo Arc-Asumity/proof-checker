@@ -6,6 +6,7 @@
 // Path /src/core/Application.cpp
 // Application.
 
+#include <iostream>
 #include <glad/gl.h>
 
 #include <pc/core/Application.hpp>
@@ -36,11 +37,13 @@ void Application::Run()
 {
     glClearColor(0, 0, 0, 1);
 
-    root_ = MainWidget::MakeMain(
-        window_.GetHeight(),
+    root_ = MainWidget::MakeMain(window_.GetHeight());
+    MainWidget::LoadSub(
+        root_,
         MakeRectangle(Color{.r = 0.1f, .g = 0.1f, .b = 0.1f, .a = 1.0f}),
         MakeRectangle(Color{.r = 0.15f, .g = 0.15f, .b = 0.15f, .a = 1.0f})
     );
+
     window_.LoadRoot(&root_);
 
     while (!window_.ShouldClose()) {
