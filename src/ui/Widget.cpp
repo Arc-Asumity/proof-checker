@@ -51,6 +51,11 @@ void WidgetPart::Render(const Renderer& renderer) const
     renderer.RenderPolygon(points_temporary_, color_);
 }
 
+void WidgetPart::ChangeColor(const Color& color)
+{
+    color_ = color;
+}
+
 void Widget::UpdateRect(const Rect& rect_origin)
 {
     for (WidgetPart& part : parts_) {
@@ -99,7 +104,7 @@ Widget* Widget::GetPressedWidget(const Point& point)
 
 void Widget::HandlePressed(const Point& point)
 {
-    std::cout << "Handle the Pressed" << std::endl;
+    parts_[0].ChangeColor(Color{.r = 1.0f, .g = 1.0f, .b = 1.0f, .a = 1.0f});
 }
 
 SubWidget::SubWidget(Widget widget, const Rect rect)

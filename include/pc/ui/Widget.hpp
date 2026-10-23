@@ -24,6 +24,8 @@ public:
     void UpdateRect(const Rect& rect);
     void Render(const Renderer& renderer) const;
 
+    void ChangeColor(const Color& color);
+
 private:
     PointSet points_{};
     PointSet points_temporary_{};
